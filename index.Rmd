@@ -18,7 +18,7 @@ hitheme: twitter-bootstrap
 ## Taking Rickshaw for a Go
 <br/>
 _ _ _
-**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright and license at the end of this page.**   
+**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
 - - -
 
 Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
@@ -242,3 +242,5 @@ If you're clamoring for more, you may enjoy a poke around in the [examples](http
 <br/>
 
 [&copy;2011-2012, Shutterstock Images](http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html)
+
+
