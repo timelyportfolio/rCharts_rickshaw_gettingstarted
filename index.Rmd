@@ -1,0 +1,244 @@
+---
+title: rCharts Rickshaw Tutorial
+subtitle: Replicate Rickshaw Getting Started
+author: Timely Portfolio
+github: {user: timelyportfolio, repo: rCharts_rickshaw_gettingstarted, branch: "gh-pages"}
+framework: bootstrap
+mode: selfcontained
+widgets: [rickshaw]
+highlighter: prettify
+hitheme: twitter-bootstrap
+---
+  
+  
+<a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+<h1>Rickshaw from <a href = "https://github.com/ramnathv/rCharts">rCharts</a></h1>
+
+## Taking Rickshaw for a Go
+<br/>
+_ _ _
+**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright and license at the end of this page.**   
+- - -
+
+Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
+
+Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes every effort to provide help for common problems without obscuring anything underneath it. If you need to reach down to D3 or the SVG layers below, go right ahead -- it's all there waiting.
+
+Let's start with a simple but complete program that paints a chart:
+
+<br/>
+<br/>
+## Example 01
+Instead of the `<div>` and `<script>` in the original tutorial, we will build this chart all with the R code below.  Also, slidify will handle all the js package dependencies and add them to our HTML file.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
+
+```{r results='asis', error=F, warning=F, message=F, tidy = F}
+#if you have not installed slidify, slidifyLibraries, or rCharts
+#require(devtools)
+#install_github('slidify', 'ramnathv', ref = 'dev')
+#install_github('rCharts', 'ramnathv')
+#install_github('slidifyLibraries', 'ramnathv', ref = 'dev') # optional
+
+options(RCHART_TEMPLATE = 'Rickshaw.html')
+
+require(rCharts)
+#specify the data
+data = data.frame(
+  c( 0, 1, 2, 3 ),
+  c( 40, 49, 17, 42 ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
+r1 <- Rickshaw$new()
+r1$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#hack for now; turn off hoverDetail entirely on refactor
+r1$params$hoverDetail = list(
+  formatter = 'function(series, x, y){
+    return "x: " + x + "  y: " + y        
+  }'#,
+)
+r1
+```
+```{r,results='asis',echo=FALSE}
+r1$print( 'example01' )
+```
+
+<br/>
+Breaking that down, first we pull in our dependencies and create a div to hold our chart. Then in our script we call Rickshaw.Graph's constructor, and pass along an element reference to our chart container, some layout instructions, and a series of data objects.
+
+The series object has a couple of slots, a data array of coordinate objects, and a color to draw them with. Finally, we call the render() method on our just instantiated graph object, which creates paints our chart on the screen.
+<br/>
+## Let's Try with Real Data
+<br/>
+Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about data. Let's use population change data from the 2010 U.S. Census to power our chart, and see what we find.
+
+We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use a short script we've written to massage the CSV data at the census.gov URL into a JavaScript data structure that Rickshaw.Graph's constructor can take as its data argument.
+
+```{r results='asis', error=F, warning=F, message=F, tidy = F}
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  seq( from = 1910, to = 2010, by = 10 ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
+r2 <- Rickshaw$new()
+r2$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#hack for now; turn off hoverDetail entirely on refactor
+r2$params$hoverDetail = list(
+  formatter = 'function(series, x, y){
+    return "x: " + x + "  y: " + y        
+  }'#,
+)
+r2
+```
+```{r,results='asis',echo=FALSE}
+r2$print( 'example02' )
+```
+<br/>
+## Time on the X-Axis
+
+A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?
+
+First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. After we modify our data transformation script to use epoch seconds for the x values we can pass our graph along to Rickshaw.Graph.Axis.Time's constructor. When the graph's render() function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
+
+Our updated transform_epoch.pl uses epoch seconds for x. Let's see how we do.
+
+```{r results='asis', error=F, warning=F, message=F, tidy = F}
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  as.numeric(
+    as.POSIXct(
+      paste0(
+        seq( from = 1910, to = 2010, by = 10 ),
+        "-01-01"
+      )
+    )
+  ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
+r3 <- Rickshaw$new()
+r3$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#hack for now; turn off hoverDetail entirely on refactor
+r3$params$hoverDetail = list(
+  formatter = 'function(series, x, y){
+    return "x: " + x + "  y: " + y        
+  }'#,
+)
+r3$xAxis( type = "Time")
+r3
+```
+```{r,results='asis',echo=FALSE}
+r3$print( 'example03' )
+```
+<br/>
+## Y-Axis Too
+
+Now let's add the pieces to get a y axis. We need a new HTML element to put the y axis in, as well as some styling to position the axis absolutely in relation to the chart.
+
+We pass along a reference to our graph to Rickshaw.Graph.Axis.Y's constructor, as well as the element we want to draw the axis inside. We also ask Rickshaw.Fixtures.Number.formatKMBT to help us format the numbers on our y ticks in there.
+
+
+```{r results='asis', error=F, warning=F, message=F, tidy = F}
+#already have the data from previous chunk
+
+#build the plot
+r4 <- Rickshaw$new()
+r4$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#hack for now; turn off hoverDetail entirely on refactor
+r4$params$hoverDetail = list(
+  formatter = 'function(series, x, y){
+    return "x: " + x + "  y: " + y        
+  }'#,
+)
+r4$xAxis( type = "Time")
+r4$yAxis()
+r4
+```
+```{r,results='asis',echo=FALSE}
+r4$print( 'example04' )
+```
+
+## Breaking Things Down
+
+The Great Depression left a mark. We should break that data down by region. Some simple changes to our data transformation gives us the regional data for our series. Here's transform_region.pl.
+
+Plugging that data into our series parameter leaves us wanting to provide colors for each of those individual series. We'll use the Rickshaw.Color.Palette plugin to pick our colors. Once we've created our palette, calling its color() method returns the next color.
+
+## What Are We Looking At?
+
+We need a legend! Following a familiar pattern, we add a container div for the legend and style it. Then we call the constructor for the Rickshaw.Graph.Legend plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
+
+## Unstacking
+
+It's clear that the South is growing quickly, but instead of painting this chart as a stacked graph it would be nice to see how these growth patterns line up against each other. We set the renderer in a callback, and then ask the graph to update.
+
+In addition to setting the default renderer for the graph, we've added a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we're using and render the graph appropriately.
+
+## More Later
+
+We're just getting started, but that's all for today. Next time we'll get into stacked bars, and different line interpolations, and smoothing, and zooming.
+
+If you're clamoring for more, you may enjoy a poke around in the [examples](http://code.shutterstock.com/rickshaw/examples/) directory.
+
+
+### Thanks to:
+- **Ramnath Vaidyanathan** for his incredible slidify, rCharts, and more specifically help with this post
+- **Shutterstock** for this very nice Rickshaw charting library.
+
+
+<br/>
+<br/>
+
+[&copy;2011-2012, Shutterstock Images](http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html)
