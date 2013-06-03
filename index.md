@@ -8,30 +8,35 @@ mode: selfcontained
 widgets: [rickshaw]
 highlighter: prettify
 hitheme: twitter-bootstrap
+assets:
+  css:
+    - "http://code.shutterstock.com/rickshaw/tutorial/style.css"
 ---
   
   
-<a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 <h1>Rickshaw from <a href = "https://github.com/ramnathv/rCharts">rCharts</a></h1>
 
 ## Taking Rickshaw for a Go
 <br/>
 _ _ _
-**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
+**This is a near exact replica of the [Rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
 - - -
 
-Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
+rCharts gives us the power of Rickshaw from R.  Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
 
 Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes every effort to provide help for common problems without obscuring anything underneath it. If you need to reach down to D3 or the SVG layers below, go right ahead -- it's all there waiting.
 
-Let's start with a simple but complete program that paints a chart:
+Let's start with a simple but complete program that paints a Rickshaw chart from R.
 
 <br/>
 <br/>
 ## Example 01
-Instead of the `<div>` and `<script>` in the original tutorial, we will build this chart all with the R code below.  Also, slidify will handle all the js package dependencies and add them to our HTML file.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
+rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
 
+
+<div id = "example01"></div>
 
 ```r
 #if you have not installed slidify, slidifyLibraries, or rCharts
@@ -60,13 +65,15 @@ r1$layer(
 )
 #turn off all the nice built in features
 #to match the sparse first example
-r1$set(hoverDetail = FALSE)
-r1$set( xAxis = FALSE )
-r1$set( yAxis = FALSE )
-r1$set( shelving = FALSE )
-r1$set( legend = FALSE )
-r1$set( slider = FALSE )
-r1$set( highlight = FALSE )
+r1$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r1
 ```
 
@@ -141,15 +148,19 @@ r1
 
 
 <br/>
-Breaking that down, first we pull in our dependencies and create a div to hold our chart. Then in our `script` we call `Rickshaw.Graph`'s constructor, and pass along an element reference to our chart container, some layout instructions, and a series of data objects.
+Breaking that down, we define our data. Then we call the `Rickshaw$new()` constructor, and in the `layer()` method pass some layout instructions and our data.
 
-The `series` object has a couple of slots, a data array of coordinate objects, and a color to draw them with. Finally, we call the render() method on our just instantiated graph object, which creates paints our chart on the screen.
+The `layer()` method allows a R formula `y~x` common to base and lattice graphics or a more traditional `x=, y =` format to specify the x and y components of our data. Within `layer()`, we also pass the name of our data source `data = data`, the type of graph `type = 'area'`, and in this case manually specify a color `color = 'steelblue'`.  rCharts by default will turn on all the very nice features of Rickshaw, such as legend, hoverDetail, xAxis, yAxis, shelving, legend, and slider. We will use `set()` to turn all these to `FALSE` for this introductory spartan example.
+
+Finally, we call the `r1` method on our just instantiated graph object, which creates an HTML file to draw our graph.  Other ways to see the generated code are `r1$html)()` to show the HTML code specific to the graph, `r1$print()`which adds the `<div>` tag to the HTML, `r2$save("filename.html")` to save our graph as an HTML file, and a very nice `r1$publish()` which in one line of code will send the HTML and all the dependencies to [Gist](http://gist.github.com) to share with the world.
 <br/>
 ## Let's Try with Real Data
 <br/>
-Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.
+Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.
 
-We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use a [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) we've written to massage the CSV data at the census.gov URL into a JavaScript data structure that `Rickshaw.Graph`'s constructor can take as its `data` argument.
+We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use the data created by the Rickshaw team's [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) to massage the CSV data at the census.gov URL into a JavaScript data structure.  We'll convert this JavaScript data structure into a more familiar R data.frame.
+
+<div id = "example02"></div>
 
 
 ```r
@@ -183,13 +194,15 @@ r2$layer(
 )
 #turn off all the nice built in features
 #to match the sparse second example
-r2$set(hoverDetail = FALSE)
-r2$set( xAxis = FALSE )
-r2$set( yAxis = FALSE )
-r2$set( shelving = FALSE )
-r2$set( legend = FALSE )
-r2$set( slider = FALSE )
-r2$set( highlight = FALSE )
+r2$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r2
 ```
 
@@ -316,9 +329,11 @@ r2
 
 A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?
 
-First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. After we modify our data transformation script to use epoch seconds for the `x` values we can pass our graph along to `Rickshaw.Graph.Axis.Time`'s constructor. When the graph's `render()` function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
+First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. rCharts makes this incredibly easy.  We will just remove the `xAxis = FALSE`, since a time-based x axis is turned on by default.  We had turned it off in the previous two examples to match the original tutorial.  When the graph's `render()` function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
 
-Our updated [transform_epoch.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_epoch.pl) uses epoch seconds for `x`. Let's see how we do.
+We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
+
+<div id = "example03"></div>
 
 
 ```r
@@ -358,13 +373,14 @@ r3$layer(
   colors= "steelblue"
 )
 #turn off all the nice built in features except xAxis
-r3$set(hoverDetail = FALSE)
-r3$set( yAxis = FALSE )
-r3$set( shelving = FALSE )
-r3$set( legend = FALSE )
-r3$set( slider = FALSE )
-r3$set( highlight = FALSE )
-
+r3$set(
+  hoverDetail = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r3
 ```
 
@@ -492,10 +508,9 @@ r3
 <br/>
 ## Y-Axis Too
 
-Now let's add the pieces to get a `y` axis. We need a new HTML element to put the `y` axis in, as well as some styling to position the axis absolutely in relation to the chart.
+Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by default draws a `y` axis, so we will just remove the `yAxis = FALSE` from the `set()` function.  The default y axis will ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks.
 
-We pass along a reference to our graph to `Rickshaw.Graph.Axis.Y`'s constructor, as well as the element we want to draw the axis inside. We also ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks in there.
-
+<div id = "example04"></div>
 
 
 ```r
@@ -510,11 +525,13 @@ r4$layer(
   colors= "steelblue"
 )
 #turn off all the nice built in features except xAxis and yAxis
-r4$set(hoverDetail = FALSE)
-r4$set( shelving = FALSE )
-r4$set( legend = FALSE )
-r4$set( slider = FALSE )
-r4$set( highlight = FALSE )
+r4$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r4
 ```
 
@@ -648,36 +665,33 @@ graphexample04.render()
 
 ## Breaking Things Down
 
-The Great Depression left a mark. We should break that data down by region. Some simple changes to our data transformation gives us the regional data for our series. Here's [transform_region.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_region.pl).
+The Great Depression left a mark. We should break that data down by region. Some simple changes by the Rickshaw's team to the script [transform_region.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_region.pl) provided the regional data for this series.
 
-Plugging that data into our series parameter leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.
+Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice [color palettes](https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js) (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the `set()` method, so something like `r5$set( scheme = "cool" )`. `colorwheel` is the default.
+
+<div id = "example05"></div>
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = c(-1893456000, 
-    -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-    631152000, 946684800, 1262304000), y = c(25868573, 29662053, 34427091, 35976777, 
+data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+    to = 2010, by = 10), "-01-01"))), y = c(25868573, 29662053, 34427091, 35976777, 
     39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = c(-1893456000, -1577923200, 
-        -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 631152000, 
-        946684800, 1262304000), y = c(29888542, 34019792, 38594100, 40143332, 
-        44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 66927001), 
-        stringsAsFactors = FALSE), data.frame(name = rep("South", n = 11), x = c(-1893456000, 
-        -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-        631152000, 946684800, 1262304000), y = c(29389330, 33125803, 37857633, 
-        41665901, 47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 
-        114555744), stringsAsFactors = FALSE), data.frame(name = rep("West", 
-        n = 11), x = c(-1893456000, -1577923200, -1262304000, -946771200, -631152000, 
-        -315619200, 0, 315532800, 631152000, 946684800, 1262304000), y = c(7082086, 
-        9213920, 12323836, 14379119, 20189962, 28053104, 34804193, 43172490, 
-        52786082, 63197932, 71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+    data.frame(name = rep("Midwest", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+        to = 2010, by = 10), "-01-01"))), y = c(29888542, 34019792, 38594100, 
+        40143332, 44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 
+        66927001), stringsAsFactors = FALSE), data.frame(name = rep("South", 
+        n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, 
+        by = 10), "-01-01"))), y = c(29389330, 33125803, 37857633, 41665901, 
+        47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 114555744), 
+        stringsAsFactors = FALSE), data.frame(name = rep("West", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+        to = 2010, by = 10), "-01-01"))), y = c(7082086, 9213920, 12323836, 
+        14379119, 20189962, 28053104, 34804193, 43172490, 52786082, 63197932, 
+        71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
 r5 <- Rickshaw$new()
 r5$layer(y ~ x, data = data, groups = "name")
 # turn off features not used in the example
-r5$set(legend = FALSE)
-r5$set(hoverDetail = FALSE)
-r5$set(highlight = FALSE)
-r5$set(shelving = FALSE)
+r5$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
+    highlight = FALSE)
 r5
 ```
 
@@ -695,95 +709,95 @@ r5
  {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29888542 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       34019792 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       38594100 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       40143332 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       44460762 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       51619139 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       56571663 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       58865670 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       59668632 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       64392776 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       66927001 
 } 
 ],
 "name": "Midwest",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Midwest",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Midwest",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Midwest",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Midwest",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Midwest",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Midwest",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Midwest",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Midwest",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Midwest",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Midwest",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Midwest",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -791,95 +805,95 @@ r5
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       25868573 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       29662053 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       34427091 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       35976777 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       39477986 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       44677819 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       49040703 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       49135283 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       50809229 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       53594378 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       55317240 
 } 
 ],
 "name": "Northeast",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Northeast",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Northeast",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Northeast",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Northeast",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Northeast",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Northeast",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Northeast",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Northeast",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Northeast",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Northeast",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Northeast",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -887,95 +901,95 @@ r5
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29389330 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       33125803 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       37857633 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       41665901 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       47197088 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       54973113 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       62795367 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       75372362 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       85445930 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":      100236820 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":      114555744 
 } 
 ],
 "name": "South",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "South",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "South",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "South",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "South",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "South",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "South",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "South",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "South",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "South",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "South",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "South",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -983,95 +997,95 @@ r5
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":        7082086 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":        9213920 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       12323836 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       14379119 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       20189962 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       28053104 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       34804193 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       43172490 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       52786082 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       63197932 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       71945553 
 } 
 ],
 "name": "West",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "West",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "West",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "West",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "West",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "West",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "West",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "West",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "West",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "West",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "West",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "West",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1109,33 +1123,18 @@ graphexample05.render()
 
 ## What Are We Looking At?
 
-We need a legend! Following a familiar pattern, we add a container div for the legend and style it. Then we call the constructor for the `Rickshaw.Graph.Legend` plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
+We need a legend! Following a familiar pattern, we will just remove the `legend = FALSE` in our previous examples' `set()` method. Rickshaw will call the constructor for the `Rickshaw.Graph.Legend` plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
+
+<div id = "example06"></div>
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = c(-1893456000, 
-    -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-    631152000, 946684800, 1262304000), y = c(25868573, 29662053, 34427091, 35976777, 
-    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = c(-1893456000, -1577923200, 
-        -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 631152000, 
-        946684800, 1262304000), y = c(29888542, 34019792, 38594100, 40143332, 
-        44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 66927001), 
-        stringsAsFactors = FALSE), data.frame(name = rep("South", n = 11), x = c(-1893456000, 
-        -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-        631152000, 946684800, 1262304000), y = c(29389330, 33125803, 37857633, 
-        41665901, 47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 
-        114555744), stringsAsFactors = FALSE), data.frame(name = rep("West", 
-        n = 11), x = c(-1893456000, -1577923200, -1262304000, -946771200, -631152000, 
-        -315619200, 0, 315532800, 631152000, 946684800, 1262304000), y = c(7082086, 
-        9213920, 12323836, 14379119, 20189962, 28053104, 34804193, 43172490, 
-        52786082, 63197932, 71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+# use data from previous example
+
 r6 <- Rickshaw$new()
 r6$layer(y ~ x, data = data, groups = "name")
 # turn off features not used in the example
-r6$set(hoverDetail = FALSE)
-r6$set(highlight = FALSE)
-r6$set(shelving = FALSE)
+r6$set(hoverDetail = FALSE, shelving = FALSE, slider = FALSE, highlight = FALSE)
 r6
 ```
 
@@ -1153,95 +1152,95 @@ r6
  {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29888542 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       34019792 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       38594100 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       40143332 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       44460762 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       51619139 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       56571663 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       58865670 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       59668632 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       64392776 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       66927001 
 } 
 ],
 "name": "Midwest",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Midwest",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Midwest",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Midwest",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Midwest",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Midwest",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Midwest",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Midwest",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Midwest",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Midwest",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Midwest",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Midwest",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1249,95 +1248,95 @@ r6
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       25868573 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       29662053 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       34427091 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       35976777 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       39477986 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       44677819 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       49040703 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       49135283 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       50809229 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       53594378 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       55317240 
 } 
 ],
 "name": "Northeast",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Northeast",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Northeast",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Northeast",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Northeast",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Northeast",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Northeast",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Northeast",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Northeast",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Northeast",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Northeast",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Northeast",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1345,95 +1344,95 @@ r6
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29389330 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       33125803 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       37857633 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       41665901 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       47197088 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       54973113 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       62795367 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       75372362 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       85445930 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":      100236820 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":      114555744 
 } 
 ],
 "name": "South",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "South",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "South",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "South",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "South",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "South",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "South",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "South",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "South",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "South",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "South",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "South",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1441,95 +1440,95 @@ r6
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":        7082086 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":        9213920 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       12323836 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       14379119 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       20189962 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       28053104 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       34804193 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       43172490 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       52786082 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       63197932 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       71945553 
 } 
 ],
 "name": "West",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "West",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "West",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "West",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "West",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "West",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "West",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "West",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "West",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "West",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "West",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "West",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1572,7 +1571,9 @@ var legendexample06 = new Rickshaw.Graph.Legend({
 
 It's clear that the South is growing quickly, but instead of painting this chart as a stacked graph it would be nice to see how these growth patterns line up against each other. We set the renderer in a callback, and then ask the graph to update.
 
-In addition to setting the default renderer for the graph, we've added a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we're using and render the graph appropriately.
+In addition to using the rCharts HTML for the chart, with `slidify` we can add a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we're using and render the graph appropriately.
+
+For one final improvement we will also remove the `set( ... = FALSE )` to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.
 
 <div id="chart_container">
         <div id="example07"></div>
@@ -1586,29 +1587,10 @@ In addition to setting the default renderer for the graph, we've added a little 
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = c(-1893456000, 
-    -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-    631152000, 946684800, 1262304000), y = c(25868573, 29662053, 34427091, 35976777, 
-    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = c(-1893456000, -1577923200, 
-        -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 631152000, 
-        946684800, 1262304000), y = c(29888542, 34019792, 38594100, 40143332, 
-        44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 66927001), 
-        stringsAsFactors = FALSE), data.frame(name = rep("South", n = 11), x = c(-1893456000, 
-        -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
-        631152000, 946684800, 1262304000), y = c(29389330, 33125803, 37857633, 
-        41665901, 47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 
-        114555744), stringsAsFactors = FALSE), data.frame(name = rep("West", 
-        n = 11), x = c(-1893456000, -1577923200, -1262304000, -946771200, -631152000, 
-        -315619200, 0, 315532800, 631152000, 946684800, 1262304000), y = c(7082086, 
-        9213920, 12323836, 14379119, 20189962, 28053104, 34804193, 43172490, 
-        52786082, 63197932, 71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+# use data from previous example
+
 r7 <- Rickshaw$new()
 r7$layer(y ~ x, data = data, groups = "name", type = "line")
-# turn off features not used in the example
-r7$set(hoverDetail = FALSE)
-r7$set(highlight = FALSE)
-r7$set(shelving = FALSE)
 r7
 ```
 
@@ -1626,95 +1608,95 @@ r7
  {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29888542 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       34019792 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       38594100 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       40143332 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       44460762 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       51619139 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       56571663 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       58865670 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       59668632 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       64392776 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       66927001 
 } 
 ],
 "name": "Midwest",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Midwest",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Midwest",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Midwest",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Midwest",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Midwest",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Midwest",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Midwest",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Midwest",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Midwest",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Midwest",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Midwest",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1722,95 +1704,95 @@ r7
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       25868573 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       29662053 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       34427091 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       35976777 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       39477986 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       44677819 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       49040703 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       49135283 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       50809229 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       53594378 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       55317240 
 } 
 ],
 "name": "Northeast",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "Northeast",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "Northeast",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "Northeast",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "Northeast",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "Northeast",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "Northeast",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "Northeast",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "Northeast",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "Northeast",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "Northeast",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "Northeast",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1818,95 +1800,95 @@ r7
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":       29389330 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":       33125803 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       37857633 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       41665901 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       47197088 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       54973113 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       62795367 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       75372362 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       85445930 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":      100236820 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":      114555744 
 } 
 ],
 "name": "South",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "South",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "South",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "South",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "South",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "South",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "South",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "South",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "South",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "South",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "South",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "South",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -1914,95 +1896,95 @@ r7
 {
  "data": [
  {
- "x":    -1893456000,
+ "x":    -1893434400,
 "y":        7082086 
 },
 {
- "x":    -1577923200,
+ "x":    -1577901600,
 "y":        9213920 
 },
 {
- "x":    -1262304000,
+ "x":    -1262282400,
 "y":       12323836 
 },
 {
- "x":     -946771200,
+ "x":     -946749600,
 "y":       14379119 
 },
 {
- "x":     -631152000,
+ "x":     -631130400,
 "y":       20189962 
 },
 {
- "x":     -315619200,
+ "x":     -315597600,
 "y":       28053104 
 },
 {
- "x":              0,
+ "x":          21600,
 "y":       34804193 
 },
 {
- "x":      315532800,
+ "x":      315554400,
 "y":       43172490 
 },
 {
- "x":      631152000,
+ "x":      631173600,
 "y":       52786082 
 },
 {
- "x":      946684800,
+ "x":      946706400,
 "y":       63197932 
 },
 {
- "x":     1262304000,
+ "x":     1262325600,
 "y":       71945553 
 } 
 ],
 "name": "West",
 "info": {
- "-1893456000": {
+ "-1893434400": {
  "name": "West",
-"x":    -1893456000 
+"x":    -1893434400 
 },
-"-1577923200": {
+"-1577901600": {
  "name": "West",
-"x":    -1577923200 
+"x":    -1577901600 
 },
-"-1262304000": {
+"-1262282400": {
  "name": "West",
-"x":    -1262304000 
+"x":    -1262282400 
 },
-"-946771200": {
+"-946749600": {
  "name": "West",
-"x":     -946771200 
+"x":     -946749600 
 },
-"-631152000": {
+"-631130400": {
  "name": "West",
-"x":     -631152000 
+"x":     -631130400 
 },
-"-315619200": {
+"-315597600": {
  "name": "West",
-"x":     -315619200 
+"x":     -315597600 
 },
-"0": {
+"21600": {
  "name": "West",
-"x":              0 
+"x":          21600 
 },
-"315532800": {
+"315554400": {
  "name": "West",
-"x":      315532800 
+"x":      315554400 
 },
-"631152000": {
+"631173600": {
  "name": "West",
-"x":      631152000 
+"x":      631173600 
 },
-"946684800": {
+"946706400": {
  "name": "West",
-"x":      946684800 
+"x":      946706400 
 },
-"1262304000": {
+"1262325600": {
  "name": "West",
-"x":     1262304000 
+"x":     1262325600 
 } 
 },
 "color":  palette.color()  
@@ -2032,9 +2014,17 @@ var legendexample07 = new Rickshaw.Graph.Legend({
  "graph":  graphexample07 ,
 "element":  document.getElementById('legendexample07')  
 })
-
-
-
+var shelvingexample07 = new Rickshaw.Graph.Behavior.Series.Toggle({
+ "graph":  graphexample07 ,
+"legend":  legendexample07  
+})
+var hoverDetailexample07 = new Rickshaw.Graph.HoverDetail({
+ "graph":  graphexample07  
+})
+var highlightexample07 = new Rickshaw.Graph.Behavior.Series.Highlight({
+ "graph":  graphexample07 ,
+"legend":  legendexample07  
+})
 
   
   graphexample07.render();
