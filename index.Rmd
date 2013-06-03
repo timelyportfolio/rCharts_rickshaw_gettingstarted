@@ -11,6 +11,7 @@ hitheme: twitter-bootstrap
 assets:
   css:
     - "http://code.shutterstock.com/rickshaw/tutorial/style.css"
+    - "./assets/tutorial.css"
 ---
   
   
