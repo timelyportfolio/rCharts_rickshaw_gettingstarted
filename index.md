@@ -77,7 +77,6 @@ r1
  "dom": "example01",
 "width":            800,
 "height":            400,
-"slider": false,
 "colors": "steelblue",
 "series": [
  {
@@ -101,16 +100,16 @@ r1
 ],
 "name": "y",
 "info": {
- "1": [
+ "0": [
               0 
 ],
-"2": [
+"1": [
               1 
 ],
-"3": [
+"2": [
               2 
 ],
-"4": [
+"3": [
               3 
 ] 
 },
@@ -124,41 +123,18 @@ r1
   
   var graphexample01 = new Rickshaw.Graph(chartParams);
   
+  graphexample01.render();
   
+  
+
+
+
+
+
+
   
   graphexample01.render();
   
-  var hoverDetailexample01 = new Rickshaw.Graph.HoverDetail( {
-    graph: graphexample01
-    , 
-     formatter: function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }
-  });
-  
-  var legendexample01 = new Rickshaw.Graph.Legend( {
-    graph: graphexample01,
-    element: document.getElementById('legendexample01')
-  });
-
-  var shelvingexample01 = new Rickshaw.Graph.Behavior.Series.Toggle({
-    graph: graphexample01,
-    legend: legendexample01
-  });
-  
-  if (chartParams.highlight){
-    var highlighterexample01 = new Rickshaw.Graph.Behavior.Series.Highlight( {
-        graph: graphexample01,
-        legend: legendexample01
-    });
-  }
-
-  if (chartParams.slider){
-    var sliderexample01 = new Rickshaw.Graph.RangeSlider( {
-      graph: graphexample01,
-      element: document.getElementById('sliderexample01')
-    });
-  }
 </script> 
 
 
@@ -222,7 +198,6 @@ r2
  "dom": "example02",
 "width":            800,
 "height":            400,
-"slider": false,
 "colors": "steelblue",
 "series": [
  {
@@ -274,37 +249,37 @@ r2
 ],
 "name": "y",
 "info": {
- "1": [
+ "1910": [
            1910 
 ],
-"2": [
+"1920": [
            1920 
 ],
-"3": [
+"1930": [
            1930 
 ],
-"4": [
+"1940": [
            1940 
 ],
-"5": [
+"1950": [
            1950 
 ],
-"6": [
+"1960": [
            1960 
 ],
-"7": [
+"1970": [
            1970 
 ],
-"8": [
+"1980": [
            1980 
 ],
-"9": [
+"1990": [
            1990 
 ],
-"10": [
+"2000": [
            2000 
 ],
-"11": [
+"2010": [
            2010 
 ] 
 },
@@ -318,41 +293,18 @@ r2
   
   var graphexample02 = new Rickshaw.Graph(chartParams);
   
+  graphexample02.render();
   
+  
+
+
+
+
+
+
   
   graphexample02.render();
   
-  var hoverDetailexample02 = new Rickshaw.Graph.HoverDetail( {
-    graph: graphexample02
-    , 
-     formatter: function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }
-  });
-  
-  var legendexample02 = new Rickshaw.Graph.Legend( {
-    graph: graphexample02,
-    element: document.getElementById('legendexample02')
-  });
-
-  var shelvingexample02 = new Rickshaw.Graph.Behavior.Series.Toggle({
-    graph: graphexample02,
-    legend: legendexample02
-  });
-  
-  if (chartParams.highlight){
-    var highlighterexample02 = new Rickshaw.Graph.Behavior.Series.Highlight( {
-        graph: graphexample02,
-        legend: legendexample02
-    });
-  }
-
-  if (chartParams.slider){
-    var sliderexample02 = new Rickshaw.Graph.RangeSlider( {
-      graph: graphexample02,
-      element: document.getElementById('sliderexample02')
-    });
-  }
 </script> 
 
 <br/>
@@ -419,7 +371,6 @@ r3
  "dom": "example03",
 "width":            800,
 "height":            400,
-"slider": false,
 "colors": "steelblue",
 "series": [
  {
@@ -471,37 +422,37 @@ r3
 ],
 "name": "y",
 "info": {
- "1": [
+ "-1893434400": [
     -1893434400 
 ],
-"2": [
+"-1577901600": [
     -1577901600 
 ],
-"3": [
+"-1262282400": [
     -1262282400 
 ],
-"4": [
+"-946749600": [
      -946749600 
 ],
-"5": [
+"-631130400": [
      -631130400 
 ],
-"6": [
+"-315597600": [
      -315597600 
 ],
-"7": [
+"21600": [
           21600 
 ],
-"8": [
+"315554400": [
       315554400 
 ],
-"9": [
+"631173600": [
       631173600 
 ],
-"10": [
+"946706400": [
       946706400 
 ],
-"11": [
+"1262325600": [
      1262325600 
 ] 
 },
@@ -515,44 +466,21 @@ r3
   
   var graphexample03 = new Rickshaw.Graph(chartParams);
   
-  var x_axis = new Rickshaw.Graph.Axis.Time( { 
-    graph: graphexample03 
-  } );
+  graphexample03.render();
   
+  var xAxisexample03 = new Rickshaw.Graph.Axis.Time({
+ "graph":  graphexample03 ,
+"element":  document.getElementById('xAxisexample03')  
+})
+
+
+
+
+
+
   
   graphexample03.render();
   
-  var hoverDetailexample03 = new Rickshaw.Graph.HoverDetail( {
-    graph: graphexample03
-    , 
-     formatter: function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }
-  });
-  
-  var legendexample03 = new Rickshaw.Graph.Legend( {
-    graph: graphexample03,
-    element: document.getElementById('legendexample03')
-  });
-
-  var shelvingexample03 = new Rickshaw.Graph.Behavior.Series.Toggle({
-    graph: graphexample03,
-    legend: legendexample03
-  });
-  
-  if (chartParams.highlight){
-    var highlighterexample03 = new Rickshaw.Graph.Behavior.Series.Highlight( {
-        graph: graphexample03,
-        legend: legendexample03
-    });
-  }
-
-  if (chartParams.slider){
-    var sliderexample03 = new Rickshaw.Graph.RangeSlider( {
-      graph: graphexample03,
-      element: document.getElementById('sliderexample03')
-    });
-  }
 </script> 
 
 <br/>
@@ -591,7 +519,6 @@ r4
  "dom": "example04",
 "width":            800,
 "height":            400,
-"slider": false,
 "colors": "steelblue",
 "series": [
  {
@@ -643,37 +570,37 @@ r4
 ],
 "name": "y",
 "info": {
- "1": [
+ "-1893434400": [
     -1893434400 
 ],
-"2": [
+"-1577901600": [
     -1577901600 
 ],
-"3": [
+"-1262282400": [
     -1262282400 
 ],
-"4": [
+"-946749600": [
      -946749600 
 ],
-"5": [
+"-631130400": [
      -631130400 
 ],
-"6": [
+"-315597600": [
      -315597600 
 ],
-"7": [
+"21600": [
           21600 
 ],
-"8": [
+"315554400": [
       315554400 
 ],
-"9": [
+"631173600": [
       631173600 
 ],
-"10": [
+"946706400": [
       946706400 
 ],
-"11": [
+"1262325600": [
      1262325600 
 ] 
 },
@@ -687,50 +614,27 @@ r4
   
   var graphexample04 = new Rickshaw.Graph(chartParams);
   
-  var x_axis = new Rickshaw.Graph.Axis.Time( { 
-    graph: graphexample04 
-  } );
+  graphexample04.render();
   
-  var yAxis = new Rickshaw.Graph.Axis.Y( {
-    graph: graphexample04,
-	  orientation: 'left',
-	  tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-	  element: document.getElementById('yAxisexample04'),
-  });
+  var xAxisexample04 = new Rickshaw.Graph.Axis.Time({
+ "graph":  graphexample04 ,
+"element":  document.getElementById('xAxisexample04')  
+})
+var yAxisexample04 = new Rickshaw.Graph.Axis.Y({
+ "graph":  graphexample04 ,
+"orientation": "left",
+"element":  document.getElementById('yAxisexample04') ,
+"tickFormat":  Rickshaw.Fixtures.Number.formatKMBT  
+})
+graphexample04.render()
+
+
+
+
+
   
   graphexample04.render();
   
-  var hoverDetailexample04 = new Rickshaw.Graph.HoverDetail( {
-    graph: graphexample04
-    , 
-     formatter: function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }
-  });
-  
-  var legendexample04 = new Rickshaw.Graph.Legend( {
-    graph: graphexample04,
-    element: document.getElementById('legendexample04')
-  });
-
-  var shelvingexample04 = new Rickshaw.Graph.Behavior.Series.Toggle({
-    graph: graphexample04,
-    legend: legendexample04
-  });
-  
-  if (chartParams.highlight){
-    var highlighterexample04 = new Rickshaw.Graph.Behavior.Series.Highlight( {
-        graph: graphexample04,
-        legend: legendexample04
-    });
-  }
-
-  if (chartParams.slider){
-    var sliderexample04 = new Rickshaw.Graph.RangeSlider( {
-      graph: graphexample04,
-      element: document.getElementById('sliderexample04')
-    });
-  }
 </script> 
 
 
@@ -1189,6 +1093,8 @@ var legendexample05 = new Rickshaw.Graph.Legend({
 
 
 
+  
+  graphexample05.render();
   
 </script> 
 
