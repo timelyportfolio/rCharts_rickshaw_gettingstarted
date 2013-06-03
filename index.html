@@ -74,11 +74,16 @@
 <p><br/>
 <br/></p>
 
-<h2>Example 01</h2>
-
 <p>rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the <code>&lt;div&gt;</code> and <code>&lt;script&gt;</code> that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.</p>
 
+<p><section class = "example" id = "example_01">
+<header>
+    <h3>Example 01</h3>
+</header></p>
+
 <div id = "example01"></div>
+
+<p></section></p>
 
 <pre><code class="r">#if you have not installed slidify, slidifyLibraries, or rCharts
 #require(devtools)
@@ -202,7 +207,14 @@ Our previous work allowed us to paint a chart of made up values with minimal sca
 
 <p>We&#39;ll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We&#39;ll use the data created by the Rickshaw team&#39;s <a href="http://code.shutterstock.com/rickshaw/tutorial/transform.pl">short script</a> to massage the CSV data at the census.gov URL into a JavaScript data structure.  We&#39;ll convert this JavaScript data structure into a more familiar R data.frame.</p>
 
+<p><section class = "example" id = "example_02">
+<header>
+    <h3>Example 02</h3>
+</header></p>
+
 <div id = "example02"></div>
+
+<p></section></p>
 
 <pre><code class="r">#specify the data
 #rather than hand entry, would be nice to grab from Census data through R
@@ -374,7 +386,14 @@ r2
 
 <p>We will use the R <code>as.POSIXct</code> function to get dates as epoch seconds for <code>x</code>. Let&#39;s see how we accomplish this.</p>
 
+<p><section class = "example" id = "example_03">
+<header>
+    <h3>Example 03</h3>
+</header></p>
+
 <div id = "example03"></div>
+
+<p></section></p>
 
 <pre><code class="r">#specify the data
 #rather than hand entry, would be nice to grab from Census data through R
@@ -550,7 +569,14 @@ r3
 
 <p>Now let&#39;s add the pieces to get a <code>y</code> axis. Like the <code>x</code> axis, rCharts by default draws a <code>y</code> axis, so we will just remove the <code>yAxis = FALSE</code> from the <code>set()</code> function.  The default y axis will ask <code>Rickshaw.Fixtures.Number.formatKMBT</code> to help us format the numbers on our <code>y</code> ticks.</p>
 
+<p><section class = "example" id = "example_04">
+<header>
+    <h3>Example 04</h3>
+</header></p>
+
 <div id = "example04"></div>
+
+<p></section></p>
 
 <pre><code class="r">#already have the data from previous chunk
 
@@ -706,7 +732,14 @@ graphexample04.render()
 
 <p>Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We&#39;ll use the <code>Rickshaw.Color.Palette</code> plugin to pick our colors. Once we&#39;ve created our palette, calling its <code>color()</code> method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice <a href="https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js">color palettes</a> (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the <code>set()</code> method, so something like <code>r5$set( scheme = &quot;cool&quot; )</code>. <code>colorwheel</code> is the default.</p>
 
+<p><section class = "example" id = "example_05">
+<header>
+  <h3>Example 05</h3>
+</header></p>
+
 <div id = "example05"></div>
+
+<p></section></p>
 
 <pre><code class="r">data &lt;- data.frame(rbind(data.frame(name = rep(&quot;Northeast&quot;, n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
     to = 2010, by = 10), &quot;-01-01&quot;))), y = c(25868573, 29662053, 34427091, 35976777, 
@@ -1159,7 +1192,14 @@ graphexample05.render()
 
 <p>We need a legend! Following a familiar pattern, we will just remove the <code>legend = FALSE</code> in our previous examples&#39; <code>set()</code> method. Rickshaw will call the constructor for the <code>Rickshaw.Graph.Legend</code> plugin, which takes a reference to our newly added DOM element, and a reference to the graph.</p>
 
+<p><section class = "example" id = "example_06">
+<header>
+    <h3>Example 06</h3>
+</header></p>
+
 <div id = "example06"></div>
+
+<p></section></p>
 
 <pre><code class="r"># use data from previous example
 
@@ -1604,7 +1644,12 @@ var legendexample06 = new Rickshaw.Graph.Legend({
 
 <p>In addition to using the rCharts HTML for the chart, with <code>slidify</code> we can add a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we&#39;re using and render the graph appropriately.</p>
 
-<p>For one final improvement we will also remove the <code>set( ... = FALSE )</code> to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.</p>
+<p>For one final improvement we will also remove the <code>set( ... = FALSE )</code> to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.  Amazing what we can do with 3 lines of R.</p>
+
+<p><section class = "example" id = "example_05">
+<header>
+  <h3>Example 05</h3>
+</header></p>
 
 <div id="chart_container">
         <div id="example07"></div>
@@ -1615,6 +1660,8 @@ var legendexample06 = new Rickshaw.Graph.Legend({
                 <label class="stack" for="stack">stack</label>
         </form>
 </div>
+
+<p></section></p>
 
 <pre><code class="r"># use data from previous example
 
@@ -2084,7 +2131,7 @@ graphexample07.render();
 
 <p>We&#39;re just getting started, but that&#39;s all for today. Next time we&#39;ll get into stacked bars, and different line interpolations, and smoothing, and zooming.</p>
 
-<p>If you&#39;re clamoring for more, you may enjoy a poke around in the <a href="http://code.shutterstock.com/rickshaw/examples/">examples</a> directory.</p>
+<p>If you&#39;re clamoring for more, you may enjoy a poke around in the <a href="http://code.shutterstock.com/rickshaw/examples/">examples</a> directory which we will also reproduce with rCharts.</p>
 
 <h3>Thanks to:</h3>
 

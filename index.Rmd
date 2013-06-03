@@ -32,11 +32,15 @@ Let's start with a simple but complete program that paints a Rickshaw chart from
 
 <br/>
 <br/>
-## Example 01
+
 rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
 
-
+<section class = "example" id = "example_01">
+<header>
+	<h3>Example 01</h3>
+</header>
 <div id = "example01"></div>
+</section>
 ```{r results='asis', error=F, warning=F, message=F, tidy = F}
 #if you have not installed slidify, slidifyLibraries, or rCharts
 #require(devtools)
@@ -92,7 +96,12 @@ Our previous work allowed us to paint a chart of made up values with minimal sca
 
 We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use the data created by the Rickshaw team's [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) to massage the CSV data at the census.gov URL into a JavaScript data structure.  We'll convert this JavaScript data structure into a more familiar R data.frame.
 
+<section class = "example" id = "example_02">
+<header>
+	<h3>Example 02</h3>
+</header>
 <div id = "example02"></div>
+</section>
 
 ```{r results='asis', error=F, warning=F, message=F, tidy = F}
 #specify the data
@@ -148,7 +157,12 @@ First we have to answer the question of when the flattening happened. Putting a 
 
 We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
 
+<section class = "example" id = "example_03">
+<header>
+	<h3>Example 03</h3>
+</header>
 <div id = "example03"></div>
+</section>
 
 ```{r results='asis', error=F, warning=F, message=F, tidy = F}
 #specify the data
@@ -205,7 +219,12 @@ r3$print( 'example03' )
 
 Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by default draws a `y` axis, so we will just remove the `yAxis = FALSE` from the `set()` function.  The default y axis will ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks.
 
+<section class = "example" id = "example_04">
+<header>
+	<h3>Example 04</h3>
+</header>
 <div id = "example04"></div>
+</section>
 
 ```{r results='asis', error=F, warning=F, message=F, tidy = F}
 #already have the data from previous chunk
@@ -238,7 +257,12 @@ The Great Depression left a mark. We should break that data down by region. Some
 
 Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice [color palettes](https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js) (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the `set()` method, so something like `r5$set( scheme = "cool" )`. `colorwheel` is the default.
 
+<section class = "example" id = "example_05">
+<header>
+  <h3>Example 05</h3>
+</header>
 <div id = "example05"></div>
+</section>
 
 ```{r}
 data <- data.frame(
@@ -370,7 +394,12 @@ r5$print( 'example05' )
 
 We need a legend! Following a familiar pattern, we will just remove the `legend = FALSE` in our previous examples' `set()` method. Rickshaw will call the constructor for the `Rickshaw.Graph.Legend` plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
 
+<section class = "example" id = "example_06">
+<header>
+  	<h3>Example 06</h3>
+</header>
 <div id = "example06"></div>
+</section>
 
 ```{r}
 #use data from previous example
@@ -402,6 +431,10 @@ In addition to using the rCharts HTML for the chart, with `slidify` we can add a
 
 For one final improvement we will also remove the `set( ... = FALSE )` to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.  Amazing what we can do with 3 lines of R.
 
+<section class = "example" id = "example_05">
+<header>
+  <h3>Example 05</h3>
+</header>
 <div id="chart_container">
         <div id="example07"></div>
         <form id="offset_form" class="toggler">
@@ -411,6 +444,7 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
                 <label class="stack" for="stack">stack</label>
         </form>
 </div>
+</section>
 
 ```{r}
 #use data from previous example
@@ -450,7 +484,7 @@ graphexample07.render();
 
 We're just getting started, but that's all for today. Next time we'll get into stacked bars, and different line interpolations, and smoothing, and zooming.
 
-If you're clamoring for more, you may enjoy a poke around in the [examples](http://code.shutterstock.com/rickshaw/examples/) directory.
+If you're clamoring for more, you may enjoy a poke around in the [examples](http://code.shutterstock.com/rickshaw/examples/) directory which we will also reproduce with rCharts.
 
 
 ### Thanks to:
