@@ -29,12 +29,7 @@ rCharts gives us the power of Rickshaw from R.  Rickshaw is a simple framework f
 
 Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes every effort to provide help for common problems without obscuring anything underneath it. If you need to reach down to D3 or the SVG layers below, go right ahead -- it's all there waiting.
 
-Let's start with a simple but complete program that paints a Rickshaw chart from R.
-
-<br/>
-<br/>
-
-rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
+Let's start with a simple but complete program that paints a Rickshaw chart from R.  rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
 
 <section class = "example" id = "example_01">
 <header>
