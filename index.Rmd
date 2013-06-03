@@ -37,7 +37,11 @@ Let's start with a simple but complete program that paints a Rickshaw chart from
 </header>
 <div id = "example01"></div>
 </section>
-```{r results='asis', error=F, warning=F, message=F, tidy = F}
+```{r echo=F, warning= F, message=F}
+opts_chunk$set(message = FALSE, warning = FALSE, error = FALSE, tidy = FALSE )
+```
+
+```{r results='asis'}
 #if you have not installed slidify, slidifyLibraries, or rCharts
 #require(devtools)
 #install_github('slidify', 'ramnathv', ref = 'dev')
@@ -99,7 +103,7 @@ We'll begin by drawing a line representing the United States population with a p
 <div id = "example02"></div>
 </section>
 
-```{r results='asis', error=F, warning=F, message=F, tidy = F}
+```{r results='asis'}
 #specify the data
 #rather than hand entry, would be nice to grab from Census data through R
 data = data.frame(
@@ -160,7 +164,7 @@ We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. L
 <div id = "example03"></div>
 </section>
 
-```{r results='asis', error=F, warning=F, message=F, tidy = F}
+```{r results='asis'}
 #specify the data
 #rather than hand entry, would be nice to grab from Census data through R
 data = data.frame(
@@ -222,7 +226,7 @@ Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by defaul
 <div id = "example04"></div>
 </section>
 
-```{r results='asis', error=F, warning=F, message=F, tidy = F}
+```{r results='asis'}
 #already have the data from previous chunk
 
 #build the plot

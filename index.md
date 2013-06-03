@@ -38,6 +38,9 @@ Let's start with a simple but complete program that paints a Rickshaw chart from
 <div id = "example01"></div>
 </section>
 
+
+
+
 ```r
 #if you have not installed slidify, slidifyLibraries, or rCharts
 #require(devtools)
@@ -693,25 +696,125 @@ Plugging that data into a data.frame now with three columns (name, x, and y) lea
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-    to = 2010, by = 10), "-01-01"))), y = c(25868573, 29662053, 34427091, 35976777, 
-    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(29888542, 34019792, 38594100, 
-        40143332, 44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 
-        66927001), stringsAsFactors = FALSE), data.frame(name = rep("South", 
-        n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, 
-        by = 10), "-01-01"))), y = c(29389330, 33125803, 37857633, 41665901, 
-        47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 114555744), 
-        stringsAsFactors = FALSE), data.frame(name = rep("West", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(7082086, 9213920, 12323836, 
-        14379119, 20189962, 28053104, 34804193, 43172490, 52786082, 63197932, 
-        71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+data <- data.frame(
+  rbind(
+    data.frame(
+      name = rep( "Northeast", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        25868573,
+        29662053,
+        34427091,
+        35976777,
+        39477986,
+        44677819,
+        49040703,
+        49135283,
+        50809229,
+        53594378,
+        55317240
+      ),
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "Midwest", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29888542,
+        34019792,
+        38594100,
+        40143332,
+        44460762,
+        51619139,
+        56571663,
+        58865670,
+        59668632,
+        64392776,
+        66927001
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "South", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29389330,
+        33125803,
+        37857633,
+        41665901,
+        47197088,
+        54973113,
+        62795367,
+        75372362,
+        85445930,
+        100236820,
+        114555744
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "West", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        7082086,
+        9213920,
+        12323836,
+        14379119,
+        20189962,
+        28053104,
+        34804193,
+        43172490,
+        52786082,
+        63197932,
+        71945553
+      ),      
+      stringsAsFactors = FALSE
+    )
+  ),
+  stringsAsFactors = FALSE
+)
 r5 <- Rickshaw$new()
-r5$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r5$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
-    highlight = FALSE)
+r5$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name"
+)
+#turn off features not used in the example
+r5$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r5
 ```
 
@@ -1154,12 +1257,21 @@ We need a legend! Following a familiar pattern, we will just remove the `legend 
 
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r6 <- Rickshaw$new()
-r6$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r6$set(hoverDetail = FALSE, shelving = FALSE, slider = FALSE, highlight = FALSE)
+r6$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name"
+)
+#turn off features not used in the example
+r6$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
 r6
 ```
 
@@ -1617,10 +1729,15 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
 
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r7 <- Rickshaw$new()
-r7$layer(y ~ x, data = data, groups = "name", type = "line")
+r7$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name",
+  type = "line"
+)
 r7
 ```
 
