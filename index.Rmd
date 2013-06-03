@@ -57,6 +57,11 @@ r1$layer(
   type = "area",
   colors= "steelblue"
 )
+r1$set(hoverDetail = FALSE)
+r1$set( xAxis = FALSE )
+r1$set( yAxis = FALSE )
+r1$set( shelving = FALSE )
+r1$set( legend = FALSE )
 #hack for now; turn off hoverDetail entirely on refactor
 r1$params$hoverDetail = list(
   formatter = 'function(series, x, y){
