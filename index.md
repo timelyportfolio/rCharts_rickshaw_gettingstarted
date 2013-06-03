@@ -882,7 +882,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -978,7 +978,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1074,7 +1074,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 } 
 ],
 "id": "example05" 
@@ -1340,7 +1340,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1436,7 +1436,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1532,7 +1532,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 } 
 ],
 "id": "example06" 
@@ -1813,7 +1813,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1909,7 +1909,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -2005,7 +2005,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": null 
+"color":  palette.color()  
 } 
 ],
 "renderer": "line",
