@@ -88,7 +88,7 @@ Breaking that down, we define our data. Then we call the `Rickshaw$new()` constr
 
 The `layer()` method allows a R formula `y~x` common to base and lattice graphics or a more traditional `x=, y =` format to specify the x and y components of our data. Within `layer()`, we also pass the name of our data source `data = data`, the type of graph `type = 'area'`, and in this case manually specify a color `color = 'steelblue'`.  rCharts by default will turn on all the very nice features of Rickshaw, such as legend, hoverDetail, xAxis, yAxis, shelving, legend, and slider. We will use `set()` to turn all these to `FALSE` for this introductory spartan example.
 
-Finally, we call the `r1` method on our just instantiated graph object, which creates an HTML file to draw our graph.  Other ways to see the generated code are `r1$html)()` to show the HTML code specific to the graph, `r1$print()`which adds the `<div>` tag to the HTML, `r2$save("filename.html")` to save our graph as an HTML file, and a very nice `r1$publish()` which in one line of code will send the HTML and all the dependencies to [Gist](http://gist.github.com) to share with the world.
+Finally, we call the `r1` method on our just instantiated graph object, which creates an HTML file to draw our graph.  Other ways to see the generated code are `r1$html()` to show the HTML code specific to the graph, `r1$print()`which adds the `<div>` tag to the HTML, `r2$save("filename.html")` to save our graph as an HTML file, and a very nice `r1$publish()` which in one line of code will send the HTML and all the dependencies to [Gist](http://gist.github.com) to share with the world.
 <br/>
 ## Let's Try with Real Data
 <br/>
@@ -433,7 +433,7 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
 
 <section class = "example" id = "example_05">
 <header>
-  <h3>Example 05</h3>
+  <h3>Example 07</h3>
 </header>
 <div id="chart_container">
         <div id="example07"></div>
