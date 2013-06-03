@@ -73,10 +73,12 @@ r1
 
 <div id='example01' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example01",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
  {
@@ -194,10 +196,12 @@ r2
 
 <div id='example02' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example02",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
  {
@@ -367,10 +371,12 @@ r3
 
 <div id='example03' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example03",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
  {
@@ -515,10 +521,12 @@ r4
 
 <div id='example04' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example04",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
  {
@@ -676,10 +684,12 @@ r5
 
 <div id='example05' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example05",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "groups": "name",
 "series": [
  {
@@ -776,7 +786,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": "#EFF3FF" 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -872,7 +882,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": "#BDD7E7" 
+"color": null 
 },
 {
  "data": [
@@ -968,7 +978,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": "#6BAED6" 
+"color": null 
 },
 {
  "data": [
@@ -1064,7 +1074,7 @@ r5
 "x":     1262304000 
 } 
 },
-"color": "#2171B5" 
+"color": null 
 } 
 ],
 "id": "example05" 
@@ -1132,10 +1142,12 @@ r6
 
 <div id='example06' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example06",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "groups": "name",
 "series": [
  {
@@ -1232,7 +1244,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": "#EFF3FF" 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1328,7 +1340,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": "#BDD7E7" 
+"color": null 
 },
 {
  "data": [
@@ -1424,7 +1436,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": "#6BAED6" 
+"color": null 
 },
 {
  "data": [
@@ -1520,7 +1532,7 @@ r6
 "x":     1262304000 
 } 
 },
-"color": "#2171B5" 
+"color": null 
 } 
 ],
 "id": "example06" 
@@ -1603,10 +1615,12 @@ r7
 
 <div id='example07' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example07",
 "width":            800,
 "height":            400,
+"scheme": "colorwheel",
 "groups": "name",
 "series": [
  {
@@ -1703,7 +1717,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": "#EFF3FF" 
+"color":  palette.color()  
 },
 {
  "data": [
@@ -1799,7 +1813,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": "#BDD7E7" 
+"color": null 
 },
 {
  "data": [
@@ -1895,7 +1909,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": "#6BAED6" 
+"color": null 
 },
 {
  "data": [
@@ -1991,7 +2005,7 @@ r7
 "x":     1262304000 
 } 
 },
-"color": "#2171B5" 
+"color": null 
 } 
 ],
 "renderer": "line",
