@@ -18,7 +18,7 @@ hitheme: twitter-bootstrap
 ## Taking Rickshaw for a Go
 <br/>
 _ _ _
-**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright and license at the end of this page.**   
+**This is a near exact replica of the [rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
 - - -
 
 Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
@@ -58,12 +58,15 @@ r1$layer(
   type = "area",
   colors= "steelblue"
 )
-#hack for now; turn off hoverDetail entirely on refactor
-r1$params$hoverDetail = list(
-  formatter = 'function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }'#,
-)
+#turn off all the nice built in features
+#to match the sparse first example
+r1$set(hoverDetail = FALSE)
+r1$set( xAxis = FALSE )
+r1$set( yAxis = FALSE )
+r1$set( shelving = FALSE )
+r1$set( legend = FALSE )
+r1$set( slider = FALSE )
+r1$set( highlight = FALSE )
 r1
 ```
 
@@ -160,15 +163,15 @@ r1
 
 
 <br/>
-Breaking that down, first we pull in our dependencies and create a div to hold our chart. Then in our script we call Rickshaw.Graph's constructor, and pass along an element reference to our chart container, some layout instructions, and a series of data objects.
+Breaking that down, first we pull in our dependencies and create a div to hold our chart. Then in our `script` we call `Rickshaw.Graph`'s constructor, and pass along an element reference to our chart container, some layout instructions, and a series of data objects.
 
-The series object has a couple of slots, a data array of coordinate objects, and a color to draw them with. Finally, we call the render() method on our just instantiated graph object, which creates paints our chart on the screen.
+The `series` object has a couple of slots, a data array of coordinate objects, and a color to draw them with. Finally, we call the render() method on our just instantiated graph object, which creates paints our chart on the screen.
 <br/>
 ## Let's Try with Real Data
 <br/>
-Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about data. Let's use population change data from the 2010 U.S. Census to power our chart, and see what we find.
+Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.
 
-We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use a short script we've written to massage the CSV data at the census.gov URL into a JavaScript data structure that Rickshaw.Graph's constructor can take as its data argument.
+We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use a [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) we've written to massage the CSV data at the census.gov URL into a JavaScript data structure that `Rickshaw.Graph`'s constructor can take as its `data` argument.
 
 
 ```r
@@ -200,12 +203,15 @@ r2$layer(
   type = "area",
   colors= "steelblue"
 )
-#hack for now; turn off hoverDetail entirely on refactor
-r2$params$hoverDetail = list(
-  formatter = 'function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }'#,
-)
+#turn off all the nice built in features
+#to match the sparse second example
+r2$set(hoverDetail = FALSE)
+r2$set( xAxis = FALSE )
+r2$set( yAxis = FALSE )
+r2$set( shelving = FALSE )
+r2$set( legend = FALSE )
+r2$set( slider = FALSE )
+r2$set( highlight = FALSE )
 r2
 ```
 
@@ -354,9 +360,9 @@ r2
 
 A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?
 
-First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. After we modify our data transformation script to use epoch seconds for the x values we can pass our graph along to Rickshaw.Graph.Axis.Time's constructor. When the graph's render() function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
+First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. After we modify our data transformation script to use epoch seconds for the `x` values we can pass our graph along to `Rickshaw.Graph.Axis.Time`'s constructor. When the graph's `render()` function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
 
-Our updated transform_epoch.pl uses epoch seconds for x. Let's see how we do.
+Our updated [transform_epoch.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_epoch.pl) uses epoch seconds for `x`. Let's see how we do.
 
 
 ```r
@@ -395,13 +401,14 @@ r3$layer(
   type = "area",
   colors= "steelblue"
 )
-#hack for now; turn off hoverDetail entirely on refactor
-r3$params$hoverDetail = list(
-  formatter = 'function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }'#,
-)
-r3$xAxis( type = "Time")
+#turn off all the nice built in features except xAxis
+r3$set(hoverDetail = FALSE)
+r3$set( yAxis = FALSE )
+r3$set( shelving = FALSE )
+r3$set( legend = FALSE )
+r3$set( slider = FALSE )
+r3$set( highlight = FALSE )
+
 r3
 ```
 
@@ -551,9 +558,9 @@ r3
 <br/>
 ## Y-Axis Too
 
-Now let's add the pieces to get a y axis. We need a new HTML element to put the y axis in, as well as some styling to position the axis absolutely in relation to the chart.
+Now let's add the pieces to get a `y` axis. We need a new HTML element to put the `y` axis in, as well as some styling to position the axis absolutely in relation to the chart.
 
-We pass along a reference to our graph to Rickshaw.Graph.Axis.Y's constructor, as well as the element we want to draw the axis inside. We also ask Rickshaw.Fixtures.Number.formatKMBT to help us format the numbers on our y ticks in there.
+We pass along a reference to our graph to `Rickshaw.Graph.Axis.Y`'s constructor, as well as the element we want to draw the axis inside. We also ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks in there.
 
 
 
@@ -568,14 +575,12 @@ r4$layer(
   type = "area",
   colors= "steelblue"
 )
-#hack for now; turn off hoverDetail entirely on refactor
-r4$params$hoverDetail = list(
-  formatter = 'function(series, x, y){
-    return "x: " + x + "  y: " + y        
-  }'#,
-)
-r4$xAxis( type = "Time")
-r4$yAxis()
+#turn off all the nice built in features except xAxis and yAxis
+r4$set(hoverDetail = FALSE)
+r4$set( shelving = FALSE )
+r4$set( legend = FALSE )
+r4$set( slider = FALSE )
+r4$set( highlight = FALSE )
 r4
 ```
 
@@ -731,9 +736,34 @@ r4
 
 ## Breaking Things Down
 
-The Great Depression left a mark. We should break that data down by region. Some simple changes to our data transformation gives us the regional data for our series. Here's transform_region.pl.
+The Great Depression left a mark. We should break that data down by region. Some simple changes to our data transformation gives us the regional data for our series. Here's [transform_region.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_region.pl).
 
-Plugging that data into our series parameter leaves us wanting to provide colors for each of those individual series. We'll use the Rickshaw.Color.Palette plugin to pick our colors. Once we've created our palette, calling its color() method returns the next color.
+Plugging that data into our series parameter leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.
+
+
+```r
+data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = c(-1893456000, 
+    -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
+    631152000, 946684800, 1262304000), y = c(25868573, 29662053, 34427091, 35976777, 
+    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
+    data.frame(name = rep("Midwest", n = 11), x = c(-1893456000, -1577923200, 
+        -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 631152000, 
+        946684800, 1262304000), y = c(29888542, 34019792, 38594100, 40143332, 
+        44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 66927001), 
+        stringsAsFactors = FALSE), data.frame(name = rep("South", n = 11), x = c(-1893456000, 
+        -1577923200, -1262304000, -946771200, -631152000, -315619200, 0, 315532800, 
+        631152000, 946684800, 1262304000), y = c(25868573, 29662053, 34427091, 
+        35976777, 39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 
+        55317240), stringsAsFactors = FALSE), data.frame(name = rep("West", 
+        n = 11), x = c(-1893456000, -1577923200, -1262304000, -946771200, -631152000, 
+        -315619200, 0, 315532800, 631152000, 946684800, 1262304000), y = c(25868573, 
+        29662053, 34427091, 35976777, 39477986, 44677819, 49040703, 49135283, 
+        50809229, 53594378, 55317240), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+r5 <- Rickshaw$new()
+r5$layer(y ~ x, data = data, groups = "name")
+r5
+```
+
 
 ## What Are We Looking At?
 
@@ -761,3 +791,5 @@ If you're clamoring for more, you may enjoy a poke around in the [examples](http
 <br/>
 
 [&copy;2011-2012, Shutterstock Images](http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html)
+
+
