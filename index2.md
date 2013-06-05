@@ -39,10 +39,12 @@ Let's start with a simple but complete program that paints a Rickshaw chart from
 <header>
     <h3>example_01</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example01" class="rChart rickshaw"></div>
+    <div id="yAxisexample01" class="yAxis"></div>
+    <div id="xAxisexample01" class="xAxis"></div>
     <div id="legendexample01" class="legend"></div>
-    <div id="sliderexample01" class="slider"></div>   
+    <div id="sliderexample01" class="slider"></div>
   </div>
 </section>
 
@@ -154,10 +156,12 @@ We'll begin by drawing a line representing the United States population with a p
 <header>
     <h3>example_02</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example02" class="rChart rickshaw"></div>
+    <div id="yAxisexample02" class="yAxis"></div>
+    <div id="xAxisexample02" class="xAxis"></div>
     <div id="legendexample02" class="legend"></div>
-    <div id="sliderexample02" class="slider"></div>   
+    <div id="sliderexample02" class="slider"></div>
   </div>
 </section>
 
@@ -310,10 +314,12 @@ We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. L
 <header>
     <h3>example_03</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example03" class="rChart rickshaw"></div>
+    <div id="yAxisexample03" class="yAxis"></div>
+    <div id="xAxisexample03" class="xAxis"></div>
     <div id="legendexample03" class="legend"></div>
-    <div id="sliderexample03" class="slider"></div>   
+    <div id="sliderexample03" class="slider"></div>
   </div>
 </section>
 
@@ -464,10 +470,12 @@ Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by defaul
 <header>
     <h3>example_04</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example04" class="rChart rickshaw"></div>
+    <div id="yAxisexample04" class="yAxis"></div>
+    <div id="xAxisexample04" class="xAxis"></div>
     <div id="legendexample04" class="legend"></div>
-    <div id="sliderexample04" class="slider"></div>   
+    <div id="sliderexample04" class="slider"></div>
   </div>
 </section>
 
@@ -622,10 +630,12 @@ Plugging that data into a data.frame now with three columns (name, x, and y) lea
 <header>
     <h3>example_05</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example05" class="rChart rickshaw"></div>
+    <div id="yAxisexample05" class="yAxis"></div>
+    <div id="xAxisexample05" class="xAxis"></div>
     <div id="legendexample05" class="legend"></div>
-    <div id="sliderexample05" class="slider"></div>   
+    <div id="sliderexample05" class="slider"></div>
   </div>
 </section>
 
@@ -1087,10 +1097,12 @@ We need a legend! Following a familiar pattern, we will just remove the `legend 
 <header>
     <h3>example_06</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example06" class="rChart rickshaw"></div>
+    <div id="yAxisexample06" class="yAxis"></div>
+    <div id="xAxisexample06" class="xAxis"></div>
     <div id="legendexample06" class="legend"></div>
-    <div id="sliderexample06" class="slider"></div>   
+    <div id="sliderexample06" class="slider"></div>
   </div>
 </section>
 
@@ -1547,16 +1559,18 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
 <header>
     <h3>example_07</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="example07" class="rChart rickshaw"></div>
+    <div id="yAxisexample07" class="yAxis"></div>
+    <div id="xAxisexample07" class="xAxis"></div>
     <div id="legendexample07" class="legend"></div>
-    <div id="sliderexample07" class="slider"></div>    
-        <form id="offset_form" class="toggler">
-                <input type="radio" name="offset" id="lines" value="lines" checked>
-                <label class="lines" for="lines">lines</label><br>
-                <input type="radio" name="offset" id="stack" value="zero">
-                <label class="stack" for="stack">stack</label>
-        </form>
+    <div id="sliderexample07" class="slider"></div> 
+      <form id="offset_form" class="toggler">
+              <input type="radio" name="offset" id="lines" value="lines" checked>
+              <label class="lines" for="lines">lines</label><br>
+              <input type="radio" name="offset" id="stack" value="zero">
+              <label class="stack" for="stack">stack</label>
+      </form>
     </div>
   </section>
   

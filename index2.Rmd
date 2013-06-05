@@ -43,10 +43,12 @@ template <- '
 <header>
     <h3>{{{ exampleId }}}</h3>
 </header>
-  <div class="chart_container">                             
+  <div class="chart_container">
     <div id="{{{ chartId }}}" class="rChart rickshaw"></div>
+    <div id="yAxis{{{ chartId }}}" class="yAxis"></div>
+    <div id="xAxis{{{ chartId }}}" class="xAxis"></div>
     <div id="legend{{{ chartId }}}" class="legend"></div>
-    <div id="slider{{{ chartId }}}" class="slider"></div>   
+    <div id="slider{{{ chartId }}}" class="slider"></div>
   </div>
 </section>
 '
@@ -476,12 +478,12 @@ exampleId = paste0(
   substr(chartId,nchar(chartId)-1,nchar(chartId))
 )
 cat(c(substr(whisker.render(template),1,nchar(whisker.render(template))-21),'
-        <form id="offset_form" class="toggler">
-                <input type="radio" name="offset" id="lines" value="lines" checked>
-                <label class="lines" for="lines">lines</label><br>
-                <input type="radio" name="offset" id="stack" value="zero">
-                <label class="stack" for="stack">stack</label>
-        </form>
+      <form id="offset_form" class="toggler">
+              <input type="radio" name="offset" id="lines" value="lines" checked>
+              <label class="lines" for="lines">lines</label><br>
+              <input type="radio" name="offset" id="stack" value="zero">
+              <label class="stack" for="stack">stack</label>
+      </form>
     </div>
   </section>
   ')
