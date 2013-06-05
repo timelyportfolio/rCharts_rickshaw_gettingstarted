@@ -480,7 +480,7 @@ exampleId = paste0(
 cat(c(substr(whisker.render(template),1,nchar(whisker.render(template))-21),'
       <form id="offset_form" class="toggler">
               <input type="radio" name="offset" id="lines" value="lines" checked>
-              <label class="lines" for="lines">lines</label><br>
+              <label class="lines" for="lines">lines</label>
               <input type="radio" name="offset" id="stack" value="zero">
               <label class="stack" for="stack">stack</label>
       </form>

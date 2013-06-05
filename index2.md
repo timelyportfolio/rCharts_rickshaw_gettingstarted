@@ -51,23 +51,40 @@ Let's start with a simple but complete program that paints a Rickshaw chart from
 
 
 ```r
-# if you have not installed slidify, slidifyLibraries, or rCharts
-# require(devtools) install_github('slidify', 'ramnathv', ref = 'dev')
-# install_github('rCharts', 'ramnathv') install_github('slidifyLibraries',
-# 'ramnathv', ref = 'dev') # optional
-options(RCHART_TEMPLATE = "Rickshaw.html")
+#if you have not installed slidify, slidifyLibraries, or rCharts
+#require(devtools)
+#install_github('slidify', 'ramnathv', ref = 'dev')
+#install_github('rCharts', 'ramnathv')
+#install_github('slidifyLibraries', 'ramnathv', ref = 'dev') # optional
+options(RCHART_TEMPLATE = 'Rickshaw.html')
 
-# specify the data
-data = data.frame(c(0, 1, 2, 3), c(40, 49, 17, 42), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+data = data.frame(
+  c( 0, 1, 2, 3 ),
+  c( 40, 49, 17, 42 ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r1 <- Rickshaw$new()
-r1$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features to match the sparse first
-# example
-r1$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
-    legend = FALSE, slider = FALSE, highlight = FALSE)
-# r1
+r1$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#turn off all the nice built in features
+#to match the sparse first example
+r1$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r1
 ```
 
 <script type='text/javascript'> 
@@ -168,20 +185,46 @@ We'll begin by drawing a line representing the United States population with a p
 
 
 ```r
-# specify the data rather than hand entry, would be nice to grab from
-# Census data through R
-data = data.frame(seq(from = 1910, to = 2010, by = 10), c(92228531, 106021568, 
-    123202660, 132165129, 151325798, 179323175, 203211926, 226545805, 248709873, 
-    281421906, 308745538), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  seq( from = 1910, to = 2010, by = 10 ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r2 <- Rickshaw$new()
-r2$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features to match the sparse second
-# example
-r2$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
-    legend = FALSE, slider = FALSE, highlight = FALSE)
-# r2
+r2$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#turn off all the nice built in features
+#to match the sparse second example
+r2$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r2
 ```
 
 <script type='text/javascript'> 
@@ -326,19 +369,51 @@ We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. L
 
 
 ```r
-# specify the data rather than hand entry, would be nice to grab from
-# Census data through R
-data = data.frame(as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, by = 10), 
-    "-01-01"))), c(92228531, 106021568, 123202660, 132165129, 151325798, 179323175, 
-    203211926, 226545805, 248709873, 281421906, 308745538), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  as.numeric(
+    as.POSIXct(
+      paste0(
+        seq( from = 1910, to = 2010, by = 10 ),
+        "-01-01"
+      )
+    )
+  ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r3 <- Rickshaw$new()
-r3$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features except xAxis
-r3$set(hoverDetail = FALSE, yAxis = FALSE, shelving = FALSE, legend = FALSE, 
-    slider = FALSE, highlight = FALSE)
-# r3
+r3$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#turn off all the nice built in features except xAxis
+r3$set(
+  hoverDetail = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r3
 ```
 
 <script type='text/javascript'> 
@@ -482,15 +557,25 @@ Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by defaul
 
 
 ```r
-# already have the data from previous chunk
+#already have the data from previous chunk
 
-# build the plot
+#build the plot
 r4 <- Rickshaw$new()
-r4$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features except xAxis and yAxis
-r4$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
-    highlight = FALSE)
-# r4
+r4$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue"
+)
+#turn off all the nice built in features except xAxis and yAxis
+r4$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r4
 ```
 
 <script type='text/javascript'> 
@@ -642,26 +727,126 @@ Plugging that data into a data.frame now with three columns (name, x, and y) lea
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-    to = 2010, by = 10), "-01-01"))), y = c(25868573, 29662053, 34427091, 35976777, 
-    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(29888542, 34019792, 38594100, 
-        40143332, 44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 
-        66927001), stringsAsFactors = FALSE), data.frame(name = rep("South", 
-        n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, 
-        by = 10), "-01-01"))), y = c(29389330, 33125803, 37857633, 41665901, 
-        47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 114555744), 
-        stringsAsFactors = FALSE), data.frame(name = rep("West", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(7082086, 9213920, 12323836, 
-        14379119, 20189962, 28053104, 34804193, 43172490, 52786082, 63197932, 
-        71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+data <- data.frame(
+  rbind(
+    data.frame(
+      name = rep( "Northeast", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        25868573,
+        29662053,
+        34427091,
+        35976777,
+        39477986,
+        44677819,
+        49040703,
+        49135283,
+        50809229,
+        53594378,
+        55317240
+      ),
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "Midwest", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29888542,
+        34019792,
+        38594100,
+        40143332,
+        44460762,
+        51619139,
+        56571663,
+        58865670,
+        59668632,
+        64392776,
+        66927001
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "South", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29389330,
+        33125803,
+        37857633,
+        41665901,
+        47197088,
+        54973113,
+        62795367,
+        75372362,
+        85445930,
+        100236820,
+        114555744
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "West", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        7082086,
+        9213920,
+        12323836,
+        14379119,
+        20189962,
+        28053104,
+        34804193,
+        43172490,
+        52786082,
+        63197932,
+        71945553
+      ),      
+      stringsAsFactors = FALSE
+    )
+  ),
+  stringsAsFactors = FALSE
+)
 r5 <- Rickshaw$new()
-r5$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r5$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
-    highlight = FALSE)
-# r5
+r5$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name"
+)
+#turn off features not used in the example
+r5$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r5
 ```
 
 <script type='text/javascript'> 
@@ -1110,13 +1295,22 @@ We need a legend! Following a familiar pattern, we will just remove the `legend 
 
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r6 <- Rickshaw$new()
-r6$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r6$set(hoverDetail = FALSE, shelving = FALSE, slider = FALSE, highlight = FALSE)
-# r6
+r6$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name"
+)
+#turn off features not used in the example
+r6$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r6
 ```
 
 <script type='text/javascript'> 
@@ -1567,7 +1761,7 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
     <div id="sliderexample07" class="slider"></div> 
       <form id="offset_form" class="toggler">
               <input type="radio" name="offset" id="lines" value="lines" checked>
-              <label class="lines" for="lines">lines</label><br>
+              <label class="lines" for="lines">lines</label>
               <input type="radio" name="offset" id="stack" value="zero">
               <label class="stack" for="stack">stack</label>
       </form>
@@ -1579,11 +1773,16 @@ For one final improvement we will also remove the `set( ... = FALSE )` to show a
 
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r7 <- Rickshaw$new()
-r7$layer(y ~ x, data = data, groups = "name", type = "line")
-# r7
+r7$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name",
+  type = "line"
+)
+#r7
 ```
 
 <script type='text/javascript'> 
