@@ -1,4 +1,4 @@
-  .container {width: 960px;}
+  .container {width: 720px;}
 
 
     .chart_container {
@@ -8,12 +8,13 @@
     }
     .rChart {
         display: inline-block;
-        margin-left: 40px;
+        margin-left: 80px;
     }
    .yAxis {
         position: absolute;
         top: 0;
         bottom: 0;
+	left: 40px;
         width: 40px;
    }
    .legend {

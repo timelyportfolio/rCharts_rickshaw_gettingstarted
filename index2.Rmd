@@ -83,7 +83,9 @@ r1$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features
 #to match the sparse first example
@@ -153,7 +155,9 @@ r2$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features
 #to match the sparse second example
@@ -225,7 +229,9 @@ r3$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features except xAxis
 r3$set(
@@ -266,7 +272,9 @@ r4$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features except xAxis and yAxis
 r4$set(
@@ -409,7 +417,9 @@ r5 <- Rickshaw$new()
 r5$layer ( 
   y ~ x,
   data = data,
-  groups = "name"
+  groups = "name",
+  height = 240,
+  width = 540
 )
 #turn off features not used in the example
 r5$set(
@@ -448,7 +458,9 @@ r6 <- Rickshaw$new()
 r6$layer ( 
   y ~ x,
   data = data,
-  groups = "name"
+  groups = "name",
+  height = 240,
+  width = 540
 )
 #turn off features not used in the example
 r6$set(
@@ -499,7 +511,9 @@ r7$layer (
   y ~ x,
   data = data,
   groups = "name",
-  type = "line"
+  type = "line",
+  height = 240,
+  width = 540
 )
 #r7
 ```

@@ -71,7 +71,9 @@ r1$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features
 #to match the sparse first example
@@ -91,8 +93,8 @@ r1$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example01",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -211,7 +213,9 @@ r2$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features
 #to match the sparse second example
@@ -231,8 +235,8 @@ r2$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example02",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -402,7 +406,9 @@ r3$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features except xAxis
 r3$set(
@@ -420,8 +426,8 @@ r3$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example03",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -565,7 +571,9 @@ r4$layer(
   y ~ x,
   data = data,
   type = "area",
-  colors= "steelblue"
+  colors= "steelblue",
+  height = 240,
+  width = 540
 )
 #turn off all the nice built in features except xAxis and yAxis
 r4$set(
@@ -582,8 +590,8 @@ r4$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example04",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -836,7 +844,9 @@ r5 <- Rickshaw$new()
 r5$layer ( 
   y ~ x,
   data = data,
-  groups = "name"
+  groups = "name",
+  height = 240,
+  width = 540
 )
 #turn off features not used in the example
 r5$set(
@@ -853,8 +863,8 @@ r5$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example05",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1301,7 +1311,9 @@ r6 <- Rickshaw$new()
 r6$layer ( 
   y ~ x,
   data = data,
-  groups = "name"
+  groups = "name",
+  height = 240,
+  width = 540
 )
 #turn off features not used in the example
 r6$set(
@@ -1317,8 +1329,8 @@ r6$set(
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example06",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1780,7 +1792,9 @@ r7$layer (
   y ~ x,
   data = data,
   groups = "name",
-  type = "line"
+  type = "line",
+  height = 240,
+  width = 540
 )
 #r7
 ```
@@ -1789,8 +1803,8 @@ r7$layer (
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example07",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
