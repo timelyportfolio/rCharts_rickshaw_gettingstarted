@@ -1,135 +1,76 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>rCharts Rickshaw Tutorial</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/png" href="favicon.ico">
-  <style>
-  body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-  }
-  </style>
+---
+title: rCharts Rickshaw Tutorial
+subtitle: Replicate Rickshaw Getting Started
+author: Timely Portfolio
+github: {user: timelyportfolio, repo: rCharts_rickshaw_gettingstarted, branch: "gh-pages"}
+framework: bootstrap
+mode: selfcontained
+widgets: [rickshaw]
+highlighter: prettify
+hitheme: twitter-bootstrap
+assets:
+  css:
+    - "http://code.shutterstock.com/rickshaw/tutorial/style.css"
+    - "./assets/tutorial.css"
+---
   
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-responsive.no-icons.min.css" rel="stylesheet">
-<!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
-<link  rel="stylesheet" 
-    href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css">
-  <link rel="stylesheet" href="libraries/frameworks/bootstrap/css/bootstrap-responsive.min.css">
   
-  <link rel="stylesheet" href="libraries/frameworks/bootstrap/css/main.css">
-  <link rel="stylesheet" href="libraries/highlighters/prettify/css/twitter-bootstrap.css" />
-  <script src="libraries/frameworks/bootstrap/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/frameworks/bootstrap/js/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-    <link rel=stylesheet href="libraries/widgets/rickshaw/css/rickshaw.min.css"></link>
-<link rel=stylesheet href="http://code.shutterstock.com/rickshaw/tutorial/style.css"></link>
-<link rel=stylesheet href="./assets/tutorial.css"></link>
-
-  <script src="libraries/widgets/rickshaw/js/d3.v2.min.js"></script>
-<script src="libraries/widgets/rickshaw/js/rickshaw.min.js"></script>
-
-</head>
-<body>
-   <!--[if lt IE 7]>
-     <p class="chromeframe">You are using an outdated browser. 
-       <a href="http://browsehappy.com/">Upgrade your browser today</a> or 
-       <a href="http://www.google.com/chromeframe/?redirect=true"> 
-         install Google Chrome Frame
-       </a> to better experience this site.
-    </p>
-   <![endif]-->
-   <!-- Ref: http://twitter.github.com/bootstrap/examples/hero.html -->
-   
-    <div class="container">
-      
-<hr>
-
-<p><a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a></p>
+<a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 <h1><a href = "http://code.shutterstock.com/rickshaw/">Rickshaw</a> from <a href = "https://github.com/ramnathv/rCharts">rCharts</a></h1>
 
-<h2>Taking Rickshaw for a Go</h2>
+## Taking Rickshaw for a Go
+<br/>
+_ _ _
+**This is a near exact replica of the [Rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
+- - -
 
-<hr>
+rCharts gives us the power of Rickshaw from R.  Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
 
-<p><strong>This is a near exact replica of the <a href="http://code.shutterstock.com/rickshaw/tutorial/introduction.html">Rickshaw getting started tutorial</a>.  All credit and attribution should be directed there.  See the copyright at the end of this page.</strong>   </p>
+Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes every effort to provide help for common problems without obscuring anything underneath it. If you need to reach down to D3 or the SVG layers below, go right ahead -- it's all there waiting.
 
-<hr>
+Let's start with a simple but complete program that paints a Rickshaw chart from R.  rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
 
-<p>rCharts gives us the power of Rickshaw from R.  Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock&#39;s delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.</p>
-
-<p>Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes every effort to provide help for common problems without obscuring anything underneath it. If you need to reach down to D3 or the SVG layers below, go right ahead -- it&#39;s all there waiting.</p>
-
-<p>Let&#39;s start with a simple but complete program that paints a Rickshaw chart from R.  rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the <code>&lt;div&gt;</code> and <code>&lt;script&gt;</code> that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.</p>
-
-<section class = "example" id = "slide-2">
+<section class = "example" id = "example_01">
 <header>
-   <h3>Example 01</h3>
+	<h3>Example 01</h3>
 </header>
- <div class="chart_container">
-   <div id="example01" class="rChart rickshaw"></div>
-   <div id="yAxisexample01" class="yAxis"></div>
-   <div id="xAxisexample01" class="xAxis"></div>
-   <div id="legendexample01" class="legend"></div>
-   <div id="sliderexample01" class="slider"></div>
-   
- </div>
- 
+<div id = "example01"></div>
 </section>
 
-<pre><code class="r">#if you have not installed slidify, slidifyLibraries, or rCharts
-#require(devtools)
-#install_github(&#39;slidify&#39;, &#39;ramnathv&#39;, ref = &#39;dev&#39;)
-#install_github(&#39;rCharts&#39;, &#39;ramnathv&#39;)
-#install_github(&#39;slidifyLibraries&#39;, &#39;ramnathv&#39;, ref = &#39;dev&#39;) # optional
-require( rCharts )
 
-options(RCHART_TEMPLATE = &#39;Rickshaw.html&#39;)
 
-#specify the data
-data = data.frame(
-  c( 0, 1, 2, 3 ),
-  c( 40, 49, 17, 42 ),
-  stringsAsFactors = FALSE
-)
-colnames(data) &lt;- c(&quot;x&quot;,&quot;y&quot;)
-#build the plot
-r1 &lt;- Rickshaw$new()
-r1$layer(
-  y ~ x,
-  data = data,
-  type = &quot;area&quot;,
-  colors= &quot;steelblue&quot;,
-  height = 240,
-  width = 540
-)
-#turn off all the nice built in features
-#to match the sparse first example
-r1$set(
-  hoverDetail = FALSE,
-  xAxis = FALSE,
-  yAxis = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r1
-</code></pre>
 
+```r
+# if you have not installed slidify, slidifyLibraries, or rCharts
+# require(devtools) install_github('slidify', 'ramnathv', ref = 'dev')
+# install_github('rCharts', 'ramnathv') install_github('slidifyLibraries',
+# 'ramnathv', ref = 'dev') # optional
+
+options(RCHART_TEMPLATE = "Rickshaw.html")
+
+require(rCharts)
+# specify the data
+data = data.frame(c(0, 1, 2, 3), c(40, 49, 17, 42), stringsAsFactors = FALSE)
+colnames(data) <- c("x", "y")
+# build the plot
+r1 <- Rickshaw$new()
+r1$layer(y ~ x, data = data, type = "area", colors = "steelblue")
+# turn off all the nice built in features to match the sparse first
+# example
+r1$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
+    legend = FALSE, slider = FALSE, highlight = FALSE)
+r1
+```
+
+
+<div id='example01' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example01",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -191,86 +132,53 @@ r1$set(
   
 </script> 
 
-<p><br/>
-Breaking that down, we define our data. Then we call the <code>Rickshaw$new()</code> constructor, and in the <code>layer()</code> method pass some layout instructions and our data.</p>
 
-<p>The <code>layer()</code> method allows a R formula <code>y~x</code> common to base and lattice graphics or a more traditional <code>x=, y =</code> format to specify the x and y components of our data. Within <code>layer()</code>, we also pass the name of our data source <code>data = data</code>, the type of graph <code>type = &#39;area&#39;</code>, and in this case manually specify a color <code>color = &#39;steelblue&#39;</code>.  rCharts by default will turn on all the very nice features of Rickshaw, such as legend, hoverDetail, xAxis, yAxis, shelving, legend, and slider. We will use <code>set()</code> to turn all these to <code>FALSE</code> for this introductory spartan example.</p>
+<br/>
+Breaking that down, we define our data. Then we call the `Rickshaw$new()` constructor, and in the `layer()` method pass some layout instructions and our data.
 
-<p>Finally, we call the <code>r1</code> method on our just instantiated graph object, which creates an HTML file to draw our graph.  Other ways to see the generated code are <code>r1$html()</code> to show the HTML code specific to the graph, <code>r1$print()</code>which adds the <code>&lt;div&gt;</code> tag to the HTML, <code>r2$save(&quot;filename.html&quot;)</code> to save our graph as an HTML file, and a very nice <code>r1$publish()</code> which in one line of code will send the HTML and all the dependencies to <a href="http://gist.github.com">Gist</a> to share with the world.
-<br/></p>
+The `layer()` method allows a R formula `y~x` common to base and lattice graphics or a more traditional `x=, y =` format to specify the x and y components of our data. Within `layer()`, we also pass the name of our data source `data = data`, the type of graph `type = 'area'`, and in this case manually specify a color `color = 'steelblue'`.  rCharts by default will turn on all the very nice features of Rickshaw, such as legend, hoverDetail, xAxis, yAxis, shelving, legend, and slider. We will use `set()` to turn all these to `FALSE` for this introductory spartan example.
 
-<h2>Let&#39;s Try with Real Data</h2>
+Finally, we call the `r1` method on our just instantiated graph object, which creates an HTML file to draw our graph.  Other ways to see the generated code are `r1$html()` to show the HTML code specific to the graph, `r1$print()`which adds the `<div>` tag to the HTML, `r2$save("filename.html")` to save our graph as an HTML file, and a very nice `r1$publish()` which in one line of code will send the HTML and all the dependencies to [Gist](http://gist.github.com) to share with the world.
+<br/>
+## Let's Try with Real Data
+<br/>
+Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.
 
-<p><br/>
-Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn&#39;t tell us anything interesting about real data. Let&#39;s use <a href="http://2010.census.gov/2010census/data/pop_change.csv">population change data</a> from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.</p>
+We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use the data created by the Rickshaw team's [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) to massage the CSV data at the census.gov URL into a JavaScript data structure.  We'll convert this JavaScript data structure into a more familiar R data.frame.
 
-<p>We&#39;ll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We&#39;ll use the data created by the Rickshaw team&#39;s <a href="http://code.shutterstock.com/rickshaw/tutorial/transform.pl">short script</a> to massage the CSV data at the census.gov URL into a JavaScript data structure.  We&#39;ll convert this JavaScript data structure into a more familiar R data.frame.</p>
-
-<section class = "example" id = "slide-4">
+<section class = "example" id = "example_02">
 <header>
-   <h3>Example 02</h3>
+	<h3>Example 02</h3>
 </header>
- <div class="chart_container">
-   <div id="example02" class="rChart rickshaw"></div>
-   <div id="yAxisexample02" class="yAxis"></div>
-   <div id="xAxisexample02" class="xAxis"></div>
-   <div id="legendexample02" class="legend"></div>
-   <div id="sliderexample02" class="slider"></div>
-   
- </div>
- 
+<div id = "example02"></div>
 </section>
 
-<pre><code class="r">#specify the data
-#rather than hand entry, would be nice to grab from Census data through R
-data = data.frame(
-  seq( from = 1910, to = 2010, by = 10 ),
-  c(
-    92228531, 
-    106021568, 
-    123202660, 
-    132165129, 
-    151325798, 
-    179323175, 
-    203211926,
-    226545805,
-    248709873,
-    281421906,
-    308745538
-  ),
-  stringsAsFactors = FALSE
-)
-colnames(data) &lt;- c(&quot;x&quot;,&quot;y&quot;)
-#build the plot
-r2 &lt;- Rickshaw$new()
-r2$layer(
-  y ~ x,
-  data = data,
-  type = &quot;area&quot;,
-  colors= &quot;steelblue&quot;,
-  height = 240,
-  width = 540
-)
-#turn off all the nice built in features
-#to match the sparse second example
-r2$set(
-  hoverDetail = FALSE,
-  xAxis = FALSE,
-  yAxis = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r2
-</code></pre>
 
+```r
+# specify the data rather than hand entry, would be nice to grab from
+# Census data through R
+data = data.frame(seq(from = 1910, to = 2010, by = 10), c(92228531, 106021568, 
+    123202660, 132165129, 151325798, 179323175, 203211926, 226545805, 248709873, 
+    281421906, 308745538), stringsAsFactors = FALSE)
+colnames(data) <- c("x", "y")
+# build the plot
+r2 <- Rickshaw$new()
+r2$layer(y ~ x, data = data, type = "area", colors = "steelblue")
+# turn off all the nice built in features to match the sparse second
+# example
+r2$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
+    legend = FALSE, slider = FALSE, highlight = FALSE)
+r2
+```
+
+
+<div id='example02' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example02",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -381,86 +289,47 @@ r2$set(
   
 </script> 
 
-<p><br/></p>
+<br/>
+## Time on the X-Axis
 
-<h2>Time on the X-Axis</h2>
+A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?
 
-<p>A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?</p>
+First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. rCharts makes this incredibly easy.  We will just remove the `xAxis = FALSE`, since a time-based x axis is turned on by default.  We had turned it off in the previous two examples to match the original tutorial.  When the graph's `render()` function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
 
-<p>First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. rCharts makes this incredibly easy.  We will just remove the <code>xAxis = FALSE</code>, since a time-based x axis is turned on by default.  We had turned it off in the previous two examples to match the original tutorial.  When the graph&#39;s <code>render()</code> function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.</p>
+We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
 
-<p>We will use the R <code>as.POSIXct</code> function to get dates as epoch seconds for <code>x</code>. Let&#39;s see how we accomplish this.</p>
-
-<section class = "example" id = "slide-6">
+<section class = "example" id = "example_03">
 <header>
-   <h3>Example 03</h3>
+	<h3>Example 03</h3>
 </header>
- <div class="chart_container">
-   <div id="example03" class="rChart rickshaw"></div>
-   <div id="yAxisexample03" class="yAxis"></div>
-   <div id="xAxisexample03" class="xAxis"></div>
-   <div id="legendexample03" class="legend"></div>
-   <div id="sliderexample03" class="slider"></div>
-   
- </div>
- 
+<div id = "example03"></div>
 </section>
 
-<pre><code class="r">#specify the data
-#rather than hand entry, would be nice to grab from Census data through R
-data = data.frame(
-  as.numeric(
-    as.POSIXct(
-      paste0(
-        seq( from = 1910, to = 2010, by = 10 ),
-        &quot;-01-01&quot;
-      )
-    )
-  ),
-  c(
-    92228531, 
-    106021568, 
-    123202660, 
-    132165129, 
-    151325798, 
-    179323175, 
-    203211926,
-    226545805,
-    248709873,
-    281421906,
-    308745538
-  ),
-  stringsAsFactors = FALSE
-)
-colnames(data) &lt;- c(&quot;x&quot;,&quot;y&quot;)
-#build the plot
-r3 &lt;- Rickshaw$new()
-r3$layer(
-  y ~ x,
-  data = data,
-  type = &quot;area&quot;,
-  colors= &quot;steelblue&quot;,
-  height = 240,
-  width = 540
-)
-#turn off all the nice built in features except xAxis
-r3$set(
-  hoverDetail = FALSE,
-  yAxis = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r3
-</code></pre>
 
+```r
+# specify the data rather than hand entry, would be nice to grab from
+# Census data through R
+data = data.frame(as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, by = 10), 
+    "-01-01"))), c(92228531, 106021568, 123202660, 132165129, 151325798, 179323175, 
+    203211926, 226545805, 248709873, 281421906, 308745538), stringsAsFactors = FALSE)
+colnames(data) <- c("x", "y")
+# build the plot
+r3 <- Rickshaw$new()
+r3$layer(y ~ x, data = data, type = "area", colors = "steelblue")
+# turn off all the nice built in features except xAxis
+r3$set(hoverDetail = FALSE, yAxis = FALSE, shelving = FALSE, legend = FALSE, 
+    slider = FALSE, highlight = FALSE)
+r3
+```
+
+
+<div id='example03' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example03",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -574,56 +443,39 @@ r3$set(
   
 </script> 
 
-<p><br/></p>
+<br/>
+## Y-Axis Too
 
-<h2>Y-Axis Too</h2>
+Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by default draws a `y` axis, so we will just remove the `yAxis = FALSE` from the `set()` function.  The default y axis will ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks.
 
-<p>Now let&#39;s add the pieces to get a <code>y</code> axis. Like the <code>x</code> axis, rCharts by default draws a <code>y</code> axis, so we will just remove the <code>yAxis = FALSE</code> from the <code>set()</code> function.  The default y axis will ask <code>Rickshaw.Fixtures.Number.formatKMBT</code> to help us format the numbers on our <code>y</code> ticks.</p>
-
-<section class = "example" id = "slide-8">
+<section class = "example" id = "example_04">
 <header>
-   <h3>Example 04</h3>
+	<h3>Example 04</h3>
 </header>
- <div class="chart_container">
-   <div id="example04" class="rChart rickshaw"></div>
-   <div id="yAxisexample04" class="yAxis"></div>
-   <div id="xAxisexample04" class="xAxis"></div>
-   <div id="legendexample04" class="legend"></div>
-   <div id="sliderexample04" class="slider"></div>
-   
- </div>
- 
+<div id = "example04"></div>
 </section>
 
-<pre><code class="r">#already have the data from previous chunk
 
-#build the plot
-r4 &lt;- Rickshaw$new()
-r4$layer(
-  y ~ x,
-  data = data,
-  type = &quot;area&quot;,
-  colors= &quot;steelblue&quot;,
-  height = 240,
-  width = 540
-)
-#turn off all the nice built in features except xAxis and yAxis
-r4$set(
-  hoverDetail = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r4
-</code></pre>
+```r
+# already have the data from previous chunk
 
+# build the plot
+r4 <- Rickshaw$new()
+r4$layer(y ~ x, data = data, type = "area", colors = "steelblue")
+# turn off all the nice built in features except xAxis and yAxis
+r4$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
+    highlight = FALSE)
+r4
+```
+
+
+<div id='example04' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example04",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -743,157 +595,52 @@ graphexample04.render()
   
 </script> 
 
-<h2>Breaking Things Down</h2>
 
-<p>The Great Depression left a mark. We should break that data down by region. Some simple changes by the Rickshaw&#39;s team to the script <a href="http://code.shutterstock.com/rickshaw/tutorial/transform_region.pl">transform_region.pl</a> provided the regional data for this series.</p>
+## Breaking Things Down
 
-<p>Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We&#39;ll use the <code>Rickshaw.Color.Palette</code> plugin to pick our colors. Once we&#39;ve created our palette, calling its <code>color()</code> method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice <a href="https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js">color palettes</a> (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the <code>set()</code> method, so something like <code>r5$set( scheme = &quot;cool&quot; )</code>. <code>colorwheel</code> is the default.</p>
+The Great Depression left a mark. We should break that data down by region. Some simple changes by the Rickshaw's team to the script [transform_region.pl](http://code.shutterstock.com/rickshaw/tutorial/transform_region.pl) provided the regional data for this series.
 
-<section class = "example" id = "slide-10">
+Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice [color palettes](https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js) (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the `set()` method, so something like `r5$set( scheme = "cool" )`. `colorwheel` is the default.
+
+<section class = "example" id = "example_05">
 <header>
-   <h3>Example 05</h3>
+  <h3>Example 05</h3>
 </header>
- <div class="chart_container">
-   <div id="example05" class="rChart rickshaw"></div>
-   <div id="yAxisexample05" class="yAxis"></div>
-   <div id="xAxisexample05" class="xAxis"></div>
-   <div id="legendexample05" class="legend"></div>
-   <div id="sliderexample05" class="slider"></div>
-   
- </div>
- 
+<div id = "example05"></div>
 </section>
 
-<pre><code class="r">data &lt;- data.frame(
-  rbind(
-    data.frame(
-      name = rep( &quot;Northeast&quot;, n = 11),
-      x = as.numeric(
-        as.POSIXct(
-          paste0(
-            seq( from = 1910, to = 2010, by = 10 ),
-            &quot;-01-01&quot;
-          )
-        )
-      ),
-      y = c(
-        25868573,
-        29662053,
-        34427091,
-        35976777,
-        39477986,
-        44677819,
-        49040703,
-        49135283,
-        50809229,
-        53594378,
-        55317240
-      ),
-      stringsAsFactors = FALSE
-    ),
-    data.frame(
-      name = rep( &quot;Midwest&quot;, n = 11),
-      x = as.numeric(
-        as.POSIXct(
-          paste0(
-            seq( from = 1910, to = 2010, by = 10 ),
-            &quot;-01-01&quot;
-          )
-        )
-      ),
-      y = c(
-        29888542,
-        34019792,
-        38594100,
-        40143332,
-        44460762,
-        51619139,
-        56571663,
-        58865670,
-        59668632,
-        64392776,
-        66927001
-      ),      
-      stringsAsFactors = FALSE
-    ),
-    data.frame(
-      name = rep( &quot;South&quot;, n = 11),
-      x = as.numeric(
-        as.POSIXct(
-          paste0(
-            seq( from = 1910, to = 2010, by = 10 ),
-            &quot;-01-01&quot;
-          )
-        )
-      ),
-      y = c(
-        29389330,
-        33125803,
-        37857633,
-        41665901,
-        47197088,
-        54973113,
-        62795367,
-        75372362,
-        85445930,
-        100236820,
-        114555744
-      ),      
-      stringsAsFactors = FALSE
-    ),
-    data.frame(
-      name = rep( &quot;West&quot;, n = 11),
-      x = as.numeric(
-        as.POSIXct(
-          paste0(
-            seq( from = 1910, to = 2010, by = 10 ),
-            &quot;-01-01&quot;
-          )
-        )
-      ),
-      y = c(
-        7082086,
-        9213920,
-        12323836,
-        14379119,
-        20189962,
-        28053104,
-        34804193,
-        43172490,
-        52786082,
-        63197932,
-        71945553
-      ),      
-      stringsAsFactors = FALSE
-    )
-  ),
-  stringsAsFactors = FALSE
-)
-r5 &lt;- Rickshaw$new()
-r5$layer ( 
-  y ~ x,
-  data = data,
-  groups = &quot;name&quot;,
-  height = 240,
-  width = 540
-)
-#turn off features not used in the example
-r5$set(
-  hoverDetail = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r5
-</code></pre>
 
+```r
+data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+    to = 2010, by = 10), "-01-01"))), y = c(25868573, 29662053, 34427091, 35976777, 
+    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
+    data.frame(name = rep("Midwest", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+        to = 2010, by = 10), "-01-01"))), y = c(29888542, 34019792, 38594100, 
+        40143332, 44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 
+        66927001), stringsAsFactors = FALSE), data.frame(name = rep("South", 
+        n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, 
+        by = 10), "-01-01"))), y = c(29389330, 33125803, 37857633, 41665901, 
+        47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 114555744), 
+        stringsAsFactors = FALSE), data.frame(name = rep("West", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
+        to = 2010, by = 10), "-01-01"))), y = c(7082086, 9213920, 12323836, 
+        14379119, 20189962, 28053104, 34804193, 43172490, 52786082, 63197932, 
+        71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+r5 <- Rickshaw$new()
+r5$layer(y ~ x, data = data, groups = "name")
+# turn off features not used in the example
+r5$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
+    highlight = FALSE)
+r5
+```
+
+
+<div id='example05' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example05",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1311,51 +1058,37 @@ graphexample05.render()
   
 </script> 
 
-<h2>What Are We Looking At?</h2>
 
-<p>We need a legend! Following a familiar pattern, we will just remove the <code>legend = FALSE</code> in our previous examples&#39; <code>set()</code> method. Rickshaw will call the constructor for the <code>Rickshaw.Graph.Legend</code> plugin, which takes a reference to our newly added DOM element, and a reference to the graph.</p>
+## What Are We Looking At?
 
-<section class = "example" id = "slide-12">
+We need a legend! Following a familiar pattern, we will just remove the `legend = FALSE` in our previous examples' `set()` method. Rickshaw will call the constructor for the `Rickshaw.Graph.Legend` plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
+
+<section class = "example" id = "example_06">
 <header>
-   <h3>Example 06</h3>
+  	<h3>Example 06</h3>
 </header>
- <div class="chart_container">
-   <div id="example06" class="rChart rickshaw"></div>
-   <div id="yAxisexample06" class="yAxis"></div>
-   <div id="xAxisexample06" class="xAxis"></div>
-   <div id="legendexample06" class="legend"></div>
-   <div id="sliderexample06" class="slider"></div>
-   
- </div>
- 
+<div id = "example06"></div>
 </section>
 
-<pre><code class="r">#use data from previous example
 
-r6 &lt;- Rickshaw$new()
-r6$layer ( 
-  y ~ x,
-  data = data,
-  groups = &quot;name&quot;,
-  height = 240,
-  width = 540
-)
-#turn off features not used in the example
-r6$set(
-  hoverDetail = FALSE,
-  shelving = FALSE,
-  slider = FALSE,
-  highlight = FALSE
-)
-#r6
-</code></pre>
+```r
+# use data from previous example
 
+r6 <- Rickshaw$new()
+r6$layer(y ~ x, data = data, groups = "name")
+# turn off features not used in the example
+r6$set(hoverDetail = FALSE, shelving = FALSE, slider = FALSE, highlight = FALSE)
+r6
+```
+
+
+<div id='example06' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example06",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1776,55 +1509,47 @@ var legendexample06 = new Rickshaw.Graph.Legend({
   
 </script> 
 
-<h2>Unstacking</h2>
 
-<p>It&#39;s clear that the South is growing quickly, but instead of painting this chart as a stacked graph it would be nice to see how these growth patterns line up against each other. We set the renderer in a callback, and then ask the graph to update.</p>
+## Unstacking
 
-<p>In addition to using the rCharts HTML for the chart, with <code>slidify</code> we can add a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we&#39;re using and render the graph appropriately.</p>
+It's clear that the South is growing quickly, but instead of painting this chart as a stacked graph it would be nice to see how these growth patterns line up against each other. We set the renderer in a callback, and then ask the graph to update.
 
-<p>For one final improvement we will also remove the <code>set( ... = FALSE )</code> to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.  Amazing what we can do with 3 lines of R.</p>
+In addition to using the rCharts HTML for the chart, with `slidify` we can add a little JavaScript to observe clicks between our stack/line toggle whose job is to update the type of renderer we're using and render the graph appropriately.
 
-<section class = "example" id = "slide-14">
+For one final improvement we will also remove the `set( ... = FALSE )` to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.  Amazing what we can do with 3 lines of R.
+
+<section class = "example" id = "example_05">
 <header>
-   <h3>Example 07</h3>
+  <h3>Example 07</h3>
 </header>
-<div class="chart_container">
-  <div id="example07" class="rChart rickshaw"></div>
-  <div id="yAxisexample07" class="yAxis"></div>
-  <div id="xAxisexample07" class="xAxis"></div>
-  <div id="legendexample07" class="legend"></div>
-  <div id="sliderexample07" class="slider"></div>
-  <form id="offset_form" class="toggler">
-    <input type="radio" name="offset" id="lines" value="lines" checked>
-    <label class="lines" for="lines">lines</label>
-    <input type="radio" name="offset" id="stack" value="zero">
-    <label class="stack" for="stack">stack</label>
-  </form>
-   
- </div>
- 
+<div id="chart_container">
+        <div id="example07"></div>
+        <form id="offset_form" class="toggler">
+                <input type="radio" name="offset" id="lines" value="lines" checked>
+                <label class="lines" for="lines">lines</label><br>
+                <input type="radio" name="offset" id="stack" value="zero">
+                <label class="stack" for="stack">stack</label>
+        </form>
+</div>
 </section>
 
-<pre><code class="r">#use data from previous example
 
-r7 &lt;- Rickshaw$new()
-r7$layer ( 
-  y ~ x,
-  data = data,
-  groups = &quot;name&quot;,
-  type = &quot;line&quot;,
-  height = 240,
-  width = 540
-)
-#r7
-</code></pre>
+```r
+# use data from previous example
 
+r7 <- Rickshaw$new()
+r7$layer(y ~ x, data = data, groups = "name", type = "line")
+r7
+```
+
+
+<div id='example07' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example07",
-"width":            540,
-"height":            240,
+"width":            800,
+"height":            400,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -2273,42 +1998,21 @@ offsetForm.addEventListener('change', function(e) {
 
 graphexample07.render();
 </script>
+## More Later
 
-<h2>More Later</h2>
+We're just getting started, but that's all for today. Next time we'll get into stacked bars, and different line interpolations, and smoothing, and zooming.
 
-<p>We&#39;re just getting started, but that&#39;s all for today. Next time we&#39;ll get into stacked bars, and different line interpolations, and smoothing, and zooming.</p>
+If you're clamoring for more, you may enjoy a poke around in the [examples](http://code.shutterstock.com/rickshaw/examples/) directory which we will also reproduce with rCharts.
 
-<p>If you&#39;re clamoring for more, you may enjoy a poke around in the <a href="http://code.shutterstock.com/rickshaw/examples/">examples</a> directory which we will also reproduce with rCharts.</p>
 
-<h3>Thanks to:</h3>
+### Thanks to:
+- **Ramnath Vaidyanathan** for his incredible slidify, rCharts, and more specifically help with this post
+- **Shutterstock** for this very nice Rickshaw charting library.
 
-<ul>
-<li><strong>Ramnath Vaidyanathan</strong> for his incredible slidify, rCharts, and more specifically help with this post</li>
-<li><strong>Shutterstock</strong> for this very nice Rickshaw charting library.</li>
-</ul>
 
-<p><br/>
-<br/></p>
+<br/>
+<br/>
 
-<p><a href="http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html">&copy;2011-2012, Shutterstock Images</a></p>
+[&copy;2011-2012, Shutterstock Images](http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html)
 
-    </div>
-        
-</body>
-  <script src="libraries/frameworks/bootstrap/js/vendor/bootstrap.min.js"></script>
-  <script src="libraries/frameworks/bootstrap/js/plugins.js"></script>
-  <script src="libraries/frameworks/bootstrap/js/main.js"></script>
-  <!-- Load Javascripts for Widgets -->
-  
-  <!-- Google Prettify -->
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
-  <script src='libraries/highlighters/prettify/js/lang-r.js'></script>
-  <script>
-    var pres = document.getElementsByTagName("pre");
-    for (var i=0; i < pres.length; ++i) {
-      pres[i].className = "prettyprint linenums";
-    }
-    prettyPrint();
-  </script>
-  <!-- End Google Prettify --> 
-  </html>
+

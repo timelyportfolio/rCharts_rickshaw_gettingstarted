@@ -1,0 +1,20 @@
+<section class = "example" id = "{{{ slide.id }}}">
+<header>
+   <h3>{{{ slide.title }}}</h3>
+</header>
+<div class="chart_container">
+  <div id="{{{ slide.chartId }}}" class="rChart rickshaw"></div>
+  <div id="yAxis{{{ slide.chartId }}}" class="yAxis"></div>
+  <div id="xAxis{{{ slide.chartId }}}" class="xAxis"></div>
+  <div id="legend{{{ slide.chartId }}}" class="legend"></div>
+  <div id="slider{{{ slide.chartId }}}" class="slider"></div>
+  <form id="offset_form" class="toggler">
+    <input type="radio" name="offset" id="lines" value="lines" checked>
+    <label class="lines" for="lines">lines</label>
+    <input type="radio" name="offset" id="stack" value="zero">
+    <label class="stack" for="stack">stack</label>
+  </form>
+   {{{ slide.content }}}
+ </div>
+ 
+</section>

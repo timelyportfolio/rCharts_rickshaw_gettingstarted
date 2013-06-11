@@ -14,13 +14,12 @@ assets:
     - "./assets/tutorial.css"
 ---
   
-  
+---  
 <a href="https://github.com/timelyportfolio/rCharts_rickshaw_gettingstarted"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
 <h1><a href = "http://code.shutterstock.com/rickshaw/">Rickshaw</a> from <a href = "https://github.com/ramnathv/rCharts">rCharts</a></h1>
 
 ## Taking Rickshaw for a Go
-<br/>
 _ _ _
 **This is a near exact replica of the [Rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
 - - -
@@ -31,46 +30,63 @@ Rickshaw builds on top of D3 technically, and spiritually too. Rickshaw makes ev
 
 Let's start with a simple but complete program that paints a Rickshaw chart from R.  rCharts will handle all the js package dependencies and add them to our HTML file, so the R user will not need to worry about these.  Instead of the `<div>` and `<script>` that we see in the original tutorial, we will build this chart all with the R code below.  You should notice a lot of similarity between the R code and the original javascript/HTML code.
 
-<section class = "example" id = "example_01">
-<header>
-	<h3>Example 01</h3>
-</header>
-<div id = "example01"></div>
-</section>
 
 
 
+--- &example chartId:example01
+
+## Example 01
+
+---
 
 ```r
-# if you have not installed slidify, slidifyLibraries, or rCharts
-# require(devtools) install_github('slidify', 'ramnathv', ref = 'dev')
-# install_github('rCharts', 'ramnathv') install_github('slidifyLibraries',
-# 'ramnathv', ref = 'dev') # optional
+#if you have not installed slidify, slidifyLibraries, or rCharts
+#require(devtools)
+#install_github('slidify', 'ramnathv', ref = 'dev')
+#install_github('rCharts', 'ramnathv')
+#install_github('slidifyLibraries', 'ramnathv', ref = 'dev') # optional
+require( rCharts )
 
-options(RCHART_TEMPLATE = "Rickshaw.html")
+options(RCHART_TEMPLATE = 'Rickshaw.html')
 
-require(rCharts)
-# specify the data
-data = data.frame(c(0, 1, 2, 3), c(40, 49, 17, 42), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+data = data.frame(
+  c( 0, 1, 2, 3 ),
+  c( 40, 49, 17, 42 ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r1 <- Rickshaw$new()
-r1$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features to match the sparse first
-# example
-r1$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
-    legend = FALSE, slider = FALSE, highlight = FALSE)
-r1
+r1$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue",
+  height = 240,
+  width = 540
+)
+#turn off all the nice built in features
+#to match the sparse first example
+r1$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r1
 ```
 
 
-<div id='example01' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example01",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -146,39 +162,64 @@ Our previous work allowed us to paint a chart of made up values with minimal sca
 
 We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use the data created by the Rickshaw team's [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) to massage the CSV data at the census.gov URL into a JavaScript data structure.  We'll convert this JavaScript data structure into a more familiar R data.frame.
 
-<section class = "example" id = "example_02">
-<header>
-	<h3>Example 02</h3>
-</header>
-<div id = "example02"></div>
-</section>
+--- &example chartId:example02
+
+## Example 02
+
+---
 
 
 ```r
-# specify the data rather than hand entry, would be nice to grab from
-# Census data through R
-data = data.frame(seq(from = 1910, to = 2010, by = 10), c(92228531, 106021568, 
-    123202660, 132165129, 151325798, 179323175, 203211926, 226545805, 248709873, 
-    281421906, 308745538), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  seq( from = 1910, to = 2010, by = 10 ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r2 <- Rickshaw$new()
-r2$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features to match the sparse second
-# example
-r2$set(hoverDetail = FALSE, xAxis = FALSE, yAxis = FALSE, shelving = FALSE, 
-    legend = FALSE, slider = FALSE, highlight = FALSE)
-r2
+r2$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue",
+  height = 240,
+  width = 540
+)
+#turn off all the nice built in features
+#to match the sparse second example
+r2$set(
+  hoverDetail = FALSE,
+  xAxis = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r2
 ```
 
-
-<div id='example02' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example02",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -290,6 +331,7 @@ r2
 </script> 
 
 <br/>
+
 ## Time on the X-Axis
 
 A trained eye can already see some points of interest there. For instance, ending about a quarter way into the graph there is a short period where the growth rate flattens out significantly. What happened then?
@@ -298,38 +340,69 @@ First we have to answer the question of when the flattening happened. Putting a 
 
 We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
 
-<section class = "example" id = "example_03">
-<header>
-	<h3>Example 03</h3>
-</header>
-<div id = "example03"></div>
-</section>
+--- &example chartId:example03
+
+## Example 03
+
+---
 
 
 ```r
-# specify the data rather than hand entry, would be nice to grab from
-# Census data through R
-data = data.frame(as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, by = 10), 
-    "-01-01"))), c(92228531, 106021568, 123202660, 132165129, 151325798, 179323175, 
-    203211926, 226545805, 248709873, 281421906, 308745538), stringsAsFactors = FALSE)
-colnames(data) <- c("x", "y")
-# build the plot
+#specify the data
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  as.numeric(
+    as.POSIXct(
+      paste0(
+        seq( from = 1910, to = 2010, by = 10 ),
+        "-01-01"
+      )
+    )
+  ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
+#build the plot
 r3 <- Rickshaw$new()
-r3$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features except xAxis
-r3$set(hoverDetail = FALSE, yAxis = FALSE, shelving = FALSE, legend = FALSE, 
-    slider = FALSE, highlight = FALSE)
-r3
+r3$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue",
+  height = 240,
+  width = 540
+)
+#turn off all the nice built in features except xAxis
+r3$set(
+  hoverDetail = FALSE,
+  yAxis = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r3
 ```
 
-
-<div id='example03' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example03",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -448,34 +521,43 @@ r3
 
 Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by default draws a `y` axis, so we will just remove the `yAxis = FALSE` from the `set()` function.  The default y axis will ask `Rickshaw.Fixtures.Number.formatKMBT` to help us format the numbers on our `y` ticks.
 
-<section class = "example" id = "example_04">
-<header>
-	<h3>Example 04</h3>
-</header>
-<div id = "example04"></div>
-</section>
+--- &example chartId:example04
+
+## Example 04
+
+---
 
 
 ```r
-# already have the data from previous chunk
+#already have the data from previous chunk
 
-# build the plot
+#build the plot
 r4 <- Rickshaw$new()
-r4$layer(y ~ x, data = data, type = "area", colors = "steelblue")
-# turn off all the nice built in features except xAxis and yAxis
-r4$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
-    highlight = FALSE)
-r4
+r4$layer(
+  y ~ x,
+  data = data,
+  type = "area",
+  colors= "steelblue",
+  height = 240,
+  width = 540
+)
+#turn off all the nice built in features except xAxis and yAxis
+r4$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r4
 ```
 
-
-<div id='example04' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example04",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "colors": "steelblue",
 "series": [
@@ -602,45 +684,144 @@ The Great Depression left a mark. We should break that data down by region. Some
 
 Plugging that data into a data.frame now with three columns (name, x, and y) leaves us wanting to provide colors for each of those individual series. We'll use the `Rickshaw.Color.Palette` plugin to pick our colors. Once we've created our palette, calling its `color()` method returns the next color.  Fortunately, rCharts handles all of this for us.  Rickshaw offers some nice [color palettes](https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Color.js) (classic9, colorwheel, cool, munin, spectrum14, spectrum2000, spectrum2001) which can be accessed in rCharts with the `set()` method, so something like `r5$set( scheme = "cool" )`. `colorwheel` is the default.
 
-<section class = "example" id = "example_05">
-<header>
-  <h3>Example 05</h3>
-</header>
-<div id = "example05"></div>
-</section>
+--- &example chartId:example05
+
+## Example 05
+
+---
 
 
 ```r
-data <- data.frame(rbind(data.frame(name = rep("Northeast", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-    to = 2010, by = 10), "-01-01"))), y = c(25868573, 29662053, 34427091, 35976777, 
-    39477986, 44677819, 49040703, 49135283, 50809229, 53594378, 55317240), stringsAsFactors = FALSE), 
-    data.frame(name = rep("Midwest", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(29888542, 34019792, 38594100, 
-        40143332, 44460762, 51619139, 56571663, 58865670, 59668632, 64392776, 
-        66927001), stringsAsFactors = FALSE), data.frame(name = rep("South", 
-        n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, to = 2010, 
-        by = 10), "-01-01"))), y = c(29389330, 33125803, 37857633, 41665901, 
-        47197088, 54973113, 62795367, 75372362, 85445930, 100236820, 114555744), 
-        stringsAsFactors = FALSE), data.frame(name = rep("West", n = 11), x = as.numeric(as.POSIXct(paste0(seq(from = 1910, 
-        to = 2010, by = 10), "-01-01"))), y = c(7082086, 9213920, 12323836, 
-        14379119, 20189962, 28053104, 34804193, 43172490, 52786082, 63197932, 
-        71945553), stringsAsFactors = FALSE)), stringsAsFactors = FALSE)
+data <- data.frame(
+  rbind(
+    data.frame(
+      name = rep( "Northeast", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        25868573,
+        29662053,
+        34427091,
+        35976777,
+        39477986,
+        44677819,
+        49040703,
+        49135283,
+        50809229,
+        53594378,
+        55317240
+      ),
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "Midwest", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29888542,
+        34019792,
+        38594100,
+        40143332,
+        44460762,
+        51619139,
+        56571663,
+        58865670,
+        59668632,
+        64392776,
+        66927001
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "South", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29389330,
+        33125803,
+        37857633,
+        41665901,
+        47197088,
+        54973113,
+        62795367,
+        75372362,
+        85445930,
+        100236820,
+        114555744
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "West", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        7082086,
+        9213920,
+        12323836,
+        14379119,
+        20189962,
+        28053104,
+        34804193,
+        43172490,
+        52786082,
+        63197932,
+        71945553
+      ),      
+      stringsAsFactors = FALSE
+    )
+  ),
+  stringsAsFactors = FALSE
+)
 r5 <- Rickshaw$new()
-r5$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r5$set(hoverDetail = FALSE, shelving = FALSE, legend = FALSE, slider = FALSE, 
-    highlight = FALSE)
-r5
+r5$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name",
+  height = 240,
+  width = 540
+)
+#turn off features not used in the example
+r5$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  legend = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r5
 ```
 
-
-<div id='example05' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example05",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1063,32 +1244,40 @@ graphexample05.render()
 
 We need a legend! Following a familiar pattern, we will just remove the `legend = FALSE` in our previous examples' `set()` method. Rickshaw will call the constructor for the `Rickshaw.Graph.Legend` plugin, which takes a reference to our newly added DOM element, and a reference to the graph.
 
-<section class = "example" id = "example_06">
-<header>
-  	<h3>Example 06</h3>
-</header>
-<div id = "example06"></div>
-</section>
+--- &example chartId:example06
+
+## Example 06
+
+---
 
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r6 <- Rickshaw$new()
-r6$layer(y ~ x, data = data, groups = "name")
-# turn off features not used in the example
-r6$set(hoverDetail = FALSE, shelving = FALSE, slider = FALSE, highlight = FALSE)
-r6
+r6$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name",
+  height = 240,
+  width = 540
+)
+#turn off features not used in the example
+r6$set(
+  hoverDetail = FALSE,
+  shelving = FALSE,
+  slider = FALSE,
+  highlight = FALSE
+)
+#r6
 ```
 
-
-<div id='example06' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example06",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -1518,38 +1707,33 @@ In addition to using the rCharts HTML for the chart, with `slidify` we can add a
 
 For one final improvement we will also remove the `set( ... = FALSE )` to show all the nice default functionality that rCharts implementation of Rickshaw provides.  Make sure to check out the tooltip details on hover and the interactive legend.  Amazing what we can do with 3 lines of R.
 
-<section class = "example" id = "example_05">
-<header>
-  <h3>Example 07</h3>
-</header>
-<div id="chart_container">
-        <div id="example07"></div>
-        <form id="offset_form" class="toggler">
-                <input type="radio" name="offset" id="lines" value="lines" checked>
-                <label class="lines" for="lines">lines</label><br>
-                <input type="radio" name="offset" id="stack" value="zero">
-                <label class="stack" for="stack">stack</label>
-        </form>
-</div>
-</section>
+--- &example7 chartId:example07
 
+## Example 07
+
+---
 
 ```r
-# use data from previous example
+#use data from previous example
 
 r7 <- Rickshaw$new()
-r7$layer(y ~ x, data = data, groups = "name", type = "line")
-r7
+r7$layer ( 
+  y ~ x,
+  data = data,
+  groups = "name",
+  type = "line",
+  height = 240,
+  width = 540
+)
+#r7
 ```
 
-
-<div id='example07' class='rChart rickshaw'></div>
 <script type='text/javascript'> 
   var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
   var chartParams = {
  "dom": "example07",
-"width":            800,
-"height":            400,
+"width":            540,
+"height":            240,
 "scheme": "colorwheel",
 "groups": "name",
 "series": [
@@ -2014,5 +2198,4 @@ If you're clamoring for more, you may enjoy a poke around in the [examples](http
 <br/>
 
 [&copy;2011-2012, Shutterstock Images](http://http://code.shutterstock.com/rickshaw/tutorial/introduction.html)
-
 
