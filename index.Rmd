@@ -21,7 +21,7 @@ assets:
 
 ## Taking Rickshaw for a Go
 _ _ _
-**This is a near exact replica of the [Rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html).  All credit and attribution should be directed there.  See the copyright at the end of this page.**   
+**This is a near exact replica of the [Rickshaw getting started tutorial](http://code.shutterstock.com/rickshaw/tutorial/introduction.html) built using the R packages [slidify](http://slidify.org) and [rCharts](http://github.com/ramnathv/rCharts).  All credit and attribution should be directed to the original authors.  See the copyright at the end of this page.**   
 - - -
 
 rCharts gives us the power of Rickshaw from R.  Rickshaw is a simple framework for drawing charts of time series data on a web page, built on top of Mike Bostock's delightful D3 library. These charts can be powered by static historical data sets, or living data that continuously updates in real time.
@@ -93,7 +93,7 @@ Finally, we call the `r1` method on our just instantiated graph object, which cr
 <br/>
 ## Let's Try with Real Data
 <br/>
-> To keep the code focused on the charts and not the data, we will use .csv files as our data source for the rest of the examples.  To see this tutorial with the data specified in R, go to this [version]().
+> To keep the code focused on the charts and not the data, we will use .csv files as our data source for the rest of the examples.  To see this tutorial with the data specified in R, go to this [version](http://timelyportfolio.github.io/rCharts_rickshaw_gettingstarted/index_dataspecified.html).
 
 <br/>
 Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.    
