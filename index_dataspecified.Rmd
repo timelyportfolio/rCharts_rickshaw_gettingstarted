@@ -93,10 +93,7 @@ Finally, we call the `r1` method on our just instantiated graph object, which cr
 <br/>
 ## Let's Try with Real Data
 <br/>
-> To keep the code focused on the charts and not the data, we will use .csv files as our data source for the rest of the examples.
-
-<br/>
-Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.    
+Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.
 
 We'll begin by drawing a line representing the United States population with a point for each decade from 1910 to 2010. We'll use the data created by the Rickshaw team's [short script](http://code.shutterstock.com/rickshaw/tutorial/transform.pl) to massage the CSV data at the census.gov URL into a JavaScript data structure.  We'll convert this JavaScript data structure into a more familiar R data.frame.
 
@@ -108,7 +105,25 @@ We'll begin by drawing a line representing the United States population with a p
 
 ```{r results='asis'}
 #specify the data
-data <- read.csv("data/data2.csv", stringsAsFactors = FALSE)
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  seq( from = 1910, to = 2010, by = 10 ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
 #build the plot
 r2 <- Rickshaw$new()
 r2$layer(
@@ -153,7 +168,32 @@ We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. L
 
 ```{r results='asis'}
 #specify the data
-data <- read.csv("data/data3.csv", stringsAsFactors = FALSE)
+#rather than hand entry, would be nice to grab from Census data through R
+data = data.frame(
+  as.numeric(
+    as.POSIXct(
+      paste0(
+        seq( from = 1910, to = 2010, by = 10 ),
+        "-01-01"
+      )
+    )
+  ),
+  c(
+    92228531, 
+    106021568, 
+    123202660, 
+    132165129, 
+    151325798, 
+    179323175, 
+    203211926,
+    226545805,
+    248709873,
+    281421906,
+    308745538
+  ),
+  stringsAsFactors = FALSE
+)
+colnames(data) <- c("x","y")
 #build the plot
 r3 <- Rickshaw$new()
 r3$layer(
@@ -229,7 +269,111 @@ Plugging that data into a data.frame now with three columns (name, x, and y) lea
 ---
 
 ```{r}
-data <- read.csv("data/data5.csv", stringsAsFactors = FALSE)
+data <- data.frame(
+  rbind(
+    data.frame(
+      name = rep( "Northeast", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        25868573,
+        29662053,
+        34427091,
+        35976777,
+        39477986,
+        44677819,
+        49040703,
+        49135283,
+        50809229,
+        53594378,
+        55317240
+      ),
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "Midwest", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29888542,
+        34019792,
+        38594100,
+        40143332,
+        44460762,
+        51619139,
+        56571663,
+        58865670,
+        59668632,
+        64392776,
+        66927001
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "South", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        29389330,
+        33125803,
+        37857633,
+        41665901,
+        47197088,
+        54973113,
+        62795367,
+        75372362,
+        85445930,
+        100236820,
+        114555744
+      ),      
+      stringsAsFactors = FALSE
+    ),
+    data.frame(
+      name = rep( "West", n = 11),
+      x = as.numeric(
+        as.POSIXct(
+          paste0(
+            seq( from = 1910, to = 2010, by = 10 ),
+            "-01-01"
+          )
+        )
+      ),
+      y = c(
+        7082086,
+        9213920,
+        12323836,
+        14379119,
+        20189962,
+        28053104,
+        34804193,
+        43172490,
+        52786082,
+        63197932,
+        71945553
+      ),      
+      stringsAsFactors = FALSE
+    )
+  ),
+  stringsAsFactors = FALSE
+)
 r5 <- Rickshaw$new()
 r5$layer ( 
   y ~ x,

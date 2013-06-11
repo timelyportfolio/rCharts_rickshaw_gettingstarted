@@ -35,3 +35,10 @@ position: absolute;
 top: 30px;
 left: 220px;
 }
+
+
+blockquote {
+  background-color: lightgray;
+  margin-left: 50px;
+  margin-right: 50px;  
+}
