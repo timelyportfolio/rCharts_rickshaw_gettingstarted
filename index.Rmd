@@ -93,7 +93,7 @@ Finally, we call the `r1` method on our just instantiated graph object, which cr
 <br/>
 ## Let's Try with Real Data
 <br/>
-> To keep the code focused on the charts and not the data, we will use .csv files as our data source for the rest of the examples.
+> To keep the code focused on the charts and not the data, we will use .csv files as our data source for the rest of the examples.  To see this tutorial with the data specified in R, go to this [version]().
 
 <br/>
 Our previous work allowed us to paint a chart of made up values with minimal scaffolding. That was fun, but it doesn't tell us anything interesting about real data. Let's use [population change data](http://2010.census.gov/2010census/data/pop_change.csv) from the 2010 U.S. Census to power our chart, and see what we find.  This dataset has moved now, and I have yet to find its new location, so we will just manually enter the data provided in the original Rickshaw tutorial.    
@@ -143,7 +143,7 @@ A trained eye can already see some points of interest there. For instance, endin
 
 First we have to answer the question of when the flattening happened. Putting a label on our x axis should help. Rickshaw gives us a helper for time based axes. rCharts makes this incredibly easy.  We will just remove the `xAxis = FALSE`, since a time-based x axis is turned on by default.  We had turned it off in the previous two examples to match the original tutorial.  When the graph's `render()` function is later called Rickshaw examines the x domain and determines the time unit being used, and labels the graph accordingly. The styling we included lines up the labels nicely across the bottom of our graph.
 
-We will use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
+We use the R `as.POSIXct` function to get dates as epoch seconds for `x`. Let's see how we accomplish this.
 
 --- &example chartId:example03
 
@@ -193,22 +193,11 @@ Now let's add the pieces to get a `y` axis. Like the `x` axis, rCharts by defaul
 #already have the data from previous chunk
 
 #build the plot
-r4 <- Rickshaw$new()
-r4$layer(
-  y ~ x,
-  data = data,
-  type = "area",
-  colors= "steelblue",
-  height = 240,
-  width = 540
-)
-#turn off all the nice built in features except xAxis and yAxis
+#since we are just turning on the yAxis we can use r3 from above
+r4 <- r3
+#turn on yAxis with TRUE since we set to FALSE earlier
 r4$set(
-  hoverDetail = FALSE,
-  shelving = FALSE,
-  legend = FALSE,
-  slider = FALSE,
-  highlight = FALSE
+  yAxis = TRUE
 )
 #r4
 ```
@@ -265,20 +254,11 @@ We need a legend! Following a familiar pattern, we will just remove the `legend 
 ```{r}
 #use data from previous example
 
-r6 <- Rickshaw$new()
-r6$layer ( 
-  y ~ x,
-  data = data,
-  groups = "name",
-  height = 240,
-  width = 540
-)
-#turn off features not used in the example
+#we can save some time by reusing our chart from Example 5
+r6 <- r5
+#now turn on the legend
 r6$set(
-  hoverDetail = FALSE,
-  shelving = FALSE,
-  slider = FALSE,
-  highlight = FALSE
+  legend = TRUE
 )
 #r6
 ```
