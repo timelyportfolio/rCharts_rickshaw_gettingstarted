@@ -5,13 +5,13 @@ author: Timely Portfolio
 github: {user: timelyportfolio, repo: rCharts_rickshaw_gettingstarted, branch: "gh-pages"}
 framework: bootstrap
 mode: selfcontained
-widgets: [rickshaw]
 highlighter: prettify
 hitheme: twitter-bootstrap
+ext_widgets: {rCharts: "libraries/rickshaw"}
 assets:
   css:
     - "http://code.shutterstock.com/rickshaw/tutorial/style.css"
-    - "./assets/tutorial.css"
+    - "./assets/tutorial.css"  
 ---
   
 ---  
